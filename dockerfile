@@ -9,4 +9,4 @@ RUN npm install
 EXPOSE 3000
 EXPOSE 3001
 EXPOSE 8000
-CMD ["./node_modules/.bin/gulp"]
+CMD ["bash"]
