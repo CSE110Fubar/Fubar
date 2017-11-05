@@ -17,8 +17,6 @@ const paths = {
   ]
 };
 
-const BROWSER_SYNC_RELOAD_DELAY = 750;
-
 gulp.task('css', function () {
   console.log('Generating css');
   return gulp.src('src/assets/scss/fubar.scss')

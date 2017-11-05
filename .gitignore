@@ -59,3 +59,4 @@ typings/
 
 
 src/assets/public/css/
+src/server/config/*
