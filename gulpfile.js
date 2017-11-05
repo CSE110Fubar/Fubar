@@ -7,12 +7,13 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     cssnano = require('gulp-cssnano'),
     sourcemaps = require('gulp-sourcemaps'),
-    nodemon = require('gulp-nodemon');
+    nodemon = require('gulp-nodemon'),
+    webpackStream = require('webpack-stream'),
+    webpack = require('webpack');
 
 const paths = {
   src: [
     'src/server/**/*.js',
-    'src/assets/js/**/*.js',
     'src/assets/scss/**/*.scss'
   ]
 };
@@ -31,19 +32,7 @@ gulp.task('css', function () {
   .pipe(browserSync.reload({stream:true}));
 });
 
-gulp.task('js',function(){
-  gulp.src('src/assets/js/scripts.js')
-    .pipe(sourcemaps.init())
-    .pipe(gulp.dest('src/assets/public/js'))
-    .pipe(uglify())
-    .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('src/assets/public/js'))
-    .pipe(browserSync.reload({stream:true, once: true}));
-});
-
-gulp.task('nodemon', ['css', 'js'], function(cb) {
+gulp.task('nodemon', ['css'], function(cb) {
   return nodemon({
     script: 'src/server/index.js',
     ext: 'js html scss css',
@@ -58,8 +47,14 @@ gulp.task('nodemon', ['css', 'js'], function(cb) {
     cb();
   })
   .on('restart', function() {
-    gulp.start('css', 'js');
+    gulp.start('css');
   });
+});
+
+gulp.task('webpack', function() {
+  gulp.src('src/assets/js/main.js')
+    .pipe(webpackStream(require('./webpack.config.js'), webpack))
+    .pipe(gulp.dest('src/assets/public/js'));
 });
 
 gulp.task('browser-sync', ['nodemon'], function() {
@@ -75,8 +70,7 @@ gulp.task('bs-reload', function () {
   browserSync.reload();
 });
 
-gulp.task('default', ['css', 'js', 'browser-sync'], function () {
+gulp.task('default', ['css', 'browser-sync'], function () {
   gulp.watch("src/scss/**/*.scss", ['css']);
-  gulp.watch("src/js/*.js", ['js']);
   gulp.watch("app/*.html", ['bs-reload']);
 });

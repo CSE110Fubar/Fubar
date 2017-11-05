@@ -1,23 +1,41 @@
 const express = require('express');
-const admin = require('firebase-admin');
+const firebase = require('firebase');
 
 module.exports = function(app) {
   const routes = express.Router();
   const apiRoutes = express.Router();
 
-  const db = admin.database();
-
   app.use('/', routes);
   app.use('/api', apiRoutes);
 
-  routes.get('/', (req, res) => {
-    // Get cause data
-    db.ref('/').on('value', (snapshot) => {
-      return res.render('index', {value: snapshot.val()});
-    });
-  });
+  // Development Hot-Middleware
+  if (process.env.NODE_ENV === 'development') {
+    const webpack = require('webpack');
+    const webpackConfig = require('../../webpack.config.js');
 
-  apiRoutes.get('/home', (req, res) => {
-    return res.json({'apiHome': true});
+    const compiler = webpack(webpackConfig);
+    app.use(require('webpack-dev-middleware')(compiler, {
+      hot: false,
+      publicPath: webpackConfig.output.publicPath,
+      stats: {
+        colors: true,
+        hash: false,
+        timings: true,
+        chunks: false,
+        chunkModules: false,
+        modules: false
+      },
+      watchOptions: {
+        poll: true
+      }
+    }));
+
+    app.use(require('webpack-hot-middleware')(compiler, {
+      publicPath: '/',
+    }));
+  }
+
+  routes.get('/', (req, res) => {
+    return res.render('index');
   });
 };
