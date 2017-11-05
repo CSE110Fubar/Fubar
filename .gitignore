@@ -59,4 +59,4 @@ typings/
 
 
 src/assets/public/css/
-src/server/config/*
+src/server/config/serviceAccountKey.json
