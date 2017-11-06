@@ -1,5 +1,4 @@
 const express = require('express');
-const firebase = require('firebase');
 
 module.exports = function(app) {
   const routes = express.Router();
