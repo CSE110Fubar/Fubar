@@ -31,6 +31,7 @@ To add specific files in your directory:
 To commit the changes and then switch back to the dev branch
 
 ```$ git commit -m <your-message>```
+
 ```$ git checkout dev```
 
 
