@@ -7,10 +7,12 @@ everything works before we merge it into master.
 
 After cloning the project you want to checkout the dev branch
 THIS STEP IS IMPORTANT: You need to make sure that you are not working in the “master” branch. You should never be modifying the “master” branch. The “dev” branch is where new features will be implemented. The “master” branch will be the production code base, where code should only be merged there once it is tested thoroughly.
+
 ```$ git checkout dev```
 
 ```$ git branch```
-you should see a “dev” and a “master” branch
+
+You should see a “dev” and a “master” branch
 
 Whenever you develop a new feature, you should create a new feature branch.
 For feature branch names we will stick to the convention of “page-feature” e.g. Search bar on the Cause page might have a branch name like “Cause_Page-searchbar”.
