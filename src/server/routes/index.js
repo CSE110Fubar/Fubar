@@ -10,7 +10,7 @@ module.exports = function(app) {
   // Development Hot-Middleware
   if (process.env.NODE_ENV === 'development') {
     const webpack = require('webpack');
-    const webpackConfig = require('../../webpack.config.js');
+    const webpackConfig = require('../../../webpack.config.js');
 
     const compiler = webpack(webpackConfig);
     app.use(require('webpack-dev-middleware')(compiler, {
@@ -37,4 +37,6 @@ module.exports = function(app) {
   routes.get('/', (req, res) => {
     return res.render('index');
   });
+
+  require('./causes')(apiRoutes);
 };

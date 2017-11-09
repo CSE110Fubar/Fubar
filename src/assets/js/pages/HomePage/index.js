@@ -1,5 +1,7 @@
 import React from 'react';
 
+import * as Api from '~/data/Api';
+
 import Hero from './components/Hero';
 import CauseCard from './components/CauseCard';
 
@@ -7,23 +9,21 @@ export default class HomePage extends React.Component {
   constructor(props) {
     super(props);
 
-    // Placeholder, replace with empty causes object
+    // Placeholder state
     this.state = {
-      causes: {
-        1: {
-          name: "Net Neutrality",
-          description: "Making sure the ISPs don't get control over internet traffic"
-        },
-        2: {
-          name: "Free Earl",
-          description: "Free my friend Earl, I don't really ask for much"
-        },
-      }
+      causes: {}
     };
   }
 
   componentWillMount() {
     // Load data from API here, store in state
+    Api.loadAllCauses()
+    .then((res) => {
+      this.setState({
+        causes: res
+      });
+    })
+    .catch(console.error);
   }
 
 	render() {
