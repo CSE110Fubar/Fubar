@@ -12,6 +12,9 @@
   "bugs": {
     "url": "https://github.com/CSE110Fubar/Fubar/issues"
   },
+  "scripts": {
+    "start": "./node_modules/.bin/gulp"
+  },
   "homepage": "https://github.com/CSE110Fubar/Fubar#readme",
   "dependencies": {
     "babel-core": "^6.26.0",
