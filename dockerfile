@@ -1,10 +1,13 @@
 FROM node:boron
 
 RUN mkdir -p /usr/src/app
+RUN mkdir -p /usr/src/app/src
 WORKDIR /usr/src/app
 
-ADD package.json .
+COPY package.json .
 RUN npm install
+
+COPY *.js /usr/src/app/
 
 EXPOSE 3000
 EXPOSE 3001

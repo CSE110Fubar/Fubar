@@ -1,6 +1,4 @@
 version: '3'
-volumes:
-  node_modules:
 services:
   fubar:
     build: .
@@ -10,5 +8,4 @@ services:
      - "8000:8000"
      - "3001:3001"
     volumes:
-     - "./:/usr/src/app"
-     - "node_modules:/usr/src/app/node_modules"
+     - "./src:/usr/src/app/src"
