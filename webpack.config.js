@@ -31,6 +31,11 @@ module.exports = {
       jquery: 'jquery'
     })
   ],
+  resolve: {
+    alias: {
+      '~': path.join(__dirname, '/src/assets/js')
+    }
+  },
   module: {
     loaders: [{
       test: /\.jsx?$/,
