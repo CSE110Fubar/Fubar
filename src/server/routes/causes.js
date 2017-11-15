@@ -18,4 +18,12 @@ module.exports = function(app) {
     .then((snapshot) => res.json(snapshot.val()))
     .catch(() => throwError(res, errors.DATABASE_ERROR));
   });
+
+  causesRoutes.get('/:causeId', (req, res) => {
+    causesRef
+    .child(req.params.causeId)
+    .once('value')
+    .then((snapshot) => res.json(snapshot.val()))
+    .catch(() => throwError(res, errors.DATABASE_ERROR));
+  });
 };

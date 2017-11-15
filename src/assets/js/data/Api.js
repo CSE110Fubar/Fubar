@@ -16,5 +16,15 @@ const cookies = new Cookies();
  */
 export const loadAllCauses = () =>
   promisify(request
-      .get('/causes')
-      .use(apiPrefix));
+    .get('/causes')
+    .use(apiPrefix));
+
+/**
+ * Request information about a given Cause.
+ * @param {String} causeId The ID of the cause to fetch
+ * @returns {Promise} A promise of the request
+ */
+export const loadCause = (causeId) =>
+  promisify(request
+    .get('/causes/' + causeId)
+    .use(apiPrefix));

@@ -7,6 +7,7 @@ module.exports = function(app) {
   app.use('/', routes);
   app.use('/api', apiRoutes);
 
+
   // Development Hot-Middleware
   if (process.env.NODE_ENV === 'development') {
     const webpack = require('webpack');
@@ -34,9 +35,10 @@ module.exports = function(app) {
     }));
   }
 
-  routes.get('/', (req, res) => {
+  require('./causes')(apiRoutes);
+
+  // React fallback
+  app.get('*', (req, res) => {
     return res.render('index');
   });
-
-  require('./causes')(apiRoutes);
 };

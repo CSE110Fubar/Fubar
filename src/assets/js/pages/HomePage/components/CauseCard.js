@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 export default class CauseCard extends React.Component {
 	render() {
@@ -10,7 +11,7 @@ export default class CauseCard extends React.Component {
         <div className="card-block">
           <h4 className="card-text">{cause.name}</h4>
           <p>{cause.description}</p>
-          <a href={`#${causeId}`} className="btn btn-info">Take me to article</a>
+          <Link to={`/causes/${causeId}`} className="btn btn-info">Take me to article</Link>
         </div>
       </div>
     </div>);
