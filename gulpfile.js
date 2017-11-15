@@ -62,8 +62,7 @@ gulp.task('browser-sync', ['nodemon'], function() {
     port: 8000,
     proxy: {
       target: 'localhost:3000'
-    },
-    open: false
+    }
   });
 });
 gulp.task('bs-reload', function () {
