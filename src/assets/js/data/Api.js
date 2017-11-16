@@ -16,6 +16,12 @@ export const getCausesRef = () =>
   db.ref('/causes')
 
 /**
+ * Reuest a list of public figures
+ */
+ export const getPublicFigureResults = () =>
+  db.ref('/publicFigures')
+
+/**
  * Request information about a given Cause.
  * @param {String} causeId The ID of the cause to fetch
  */
