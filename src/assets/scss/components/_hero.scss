@@ -1,3 +1,27 @@
 .hero {
-  margin: 2rem 0;
+  padding: 2rem 0;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  
+  &__header {
+    color: $link-color;
+
+    &:hover {
+      color: $link-hover-color;
+      text-decoration: none;
+    }
+
+    &--expanded {
+      color: $white;
+
+      &:hover {
+        color: darken($white, 5%);
+      }
+    }
+  }
+
+  &--expanded {
+    padding: 2rem 0 10rem;
+  }
 }

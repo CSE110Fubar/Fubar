@@ -1,0 +1,15 @@
+.column {
+  background: darken($white, 2%);
+
+  &:not(:first-child) {
+    border-left: 1px solid darken($white, 10%);
+  }
+
+  &__cta {
+    margin-bottom: 2rem;
+  }
+
+  &--secondary {
+    background: darken($white, 4%);
+  }
+}

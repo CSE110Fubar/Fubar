@@ -1,5 +1,15 @@
 @import 'base';
 @import 'components/all';
+@import 'pages/all';
+
+a {
+  color: $link-color;
+
+  &:hover {
+    color: $link-hover-color;
+    text-decoration: none;
+  }
+}
 
 .card-block {
   padding: 1.5em;

@@ -29,12 +29,14 @@ export default class HomePage extends React.Component {
 	render() {
     let {causes} = this.state;
 
-		return (<div className="container">
+		return (<div className="home-page">
       <Hero />
-      <div className="row">
-        {Object.keys(causes).map((causeId) => 
-          <CauseCard cause={causes[causeId]} causeId={causeId} key={causeId} />
-        )}
+      <div className="container">
+        <div className="row">
+          {Object.keys(causes).map((causeId) => 
+            <CauseCard cause={causes[causeId]} causeId={causeId} key={causeId} />
+          )}
+        </div>
       </div>
     </div>);
 	}

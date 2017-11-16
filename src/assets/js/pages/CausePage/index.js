@@ -33,10 +33,31 @@ export default class CausePage extends React.Component {
       return <div>Loading...</div>;
     }
 
-		return (<div className="container">
-      <Hero />
-      <h1>{cause.name}</h1>
-      <h2>{cause.description}</h2>
+		return (<div className="cause-page">
+      <Hero background={cause.image} />
+      <div className="container cause-page__content">
+        <div className="row">
+          <div className="col-12">
+            <h1 className="cause-page__header">{cause.name}</h1>
+          </div>
+          <div className="col-12">
+            <h2 className="cause-page__description">{cause.description}</h2>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-6 column">
+            <h2>Support</h2>
+            <hr />
+            <button className="btn btn-outline-primary column__cta">Support this Cause</button>
+            <p className="column__info"></p>
+          </div>
+          <div className="col-6 column column--secondary">
+            <h2>Oppose</h2>
+            <hr />
+            <button className="btn btn-outline-primary column__cta">Oppose this Cause</button>
+          </div>
+        </div>
+      </div>
     </div>);
 	}
 }
