@@ -2,11 +2,8 @@ const express = require('express');
 
 module.exports = function(app) {
   const routes = express.Router();
-  const apiRoutes = express.Router();
 
   app.use('/', routes);
-  app.use('/api', apiRoutes);
-
 
   // Development Hot-Middleware
   if (process.env.NODE_ENV === 'development') {
@@ -34,8 +31,6 @@ module.exports = function(app) {
       publicPath: '/',
     }));
   }
-
-  require('./causes')(apiRoutes);
 
   // React fallback
   app.get('*', (req, res) => {
