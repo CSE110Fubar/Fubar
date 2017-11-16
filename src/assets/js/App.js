@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import CausePage from './pages/CausePage';
 import PublicFigurePage from './pages/PublicFigurePage';
+import SettingsPage from './pages/SettingsPage';
 
 export default class App extends React.Component {
 	render() {
@@ -13,6 +14,7 @@ export default class App extends React.Component {
 					<Route exact path="/" component={HomePage} />
 					<Route path="/causes/:causeId" component={CausePage} />
 					<Route path="/figures/:figureId" component={PublicFigurePage} />
+					<Route path="/settings" component={SettingsPage}/>
 				</Switch>
 			</Router>
 		);
