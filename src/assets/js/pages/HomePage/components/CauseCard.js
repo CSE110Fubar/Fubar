@@ -7,11 +7,12 @@ export default class CauseCard extends React.Component {
 
 		return (<div className="col-sm-3">
       <div className="card">
-        <img src="img/stock.jpg" className="card-img-top"/>
+        <img src={cause.image} className="card-img-top"/>
         <div className="card-block">
-          <h4 className="card-text">{cause.name}</h4>
+          <Link to={`/causes/${causeId}`} className="card-text card__header">
+            {cause.name}
+          </Link>
           <p>{cause.description}</p>
-          <Link to={`/causes/${causeId}`} className="btn btn-info">Take me to article</Link>
         </div>
       </div>
     </div>);
