@@ -21,21 +21,34 @@ export default class Login extends React.Component {
 
   login = () => {
     auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-    .then(() => auth.signInWithPopup(provider))
-    .then((result) => {
-      const user = result.user;
-      this.setState({user});
-    })
-    .catch(console.error);
+      .then(() => auth.signInWithPopup(provider))
+      .then((result) => {
+        const user = result.user;
+        this.setState({user});
+      })
+      .catch(console.error);
   };
 
-	render() {
+  logout = () => {
+    auth.signOut()
+      .then(() => {
+        this.setState({user: {}});
+      })
+      .catch(console.error);
+  };
+
+  render() {
     let {user} = this.state;
     if (user) {
-      return <div>{user.displayName}</div>
+      return (<div>
+        {user.displayName}&nbsp;
+        <button onClick={this.logout} type="button" className="btn btn-info">
+          Logout
+        </button>
+      </div>);
     }
     return (<button onClick={this.login} type="button" className="btn btn-info">
       Login with Facebook
     </button>);
-	}
+  }
 }

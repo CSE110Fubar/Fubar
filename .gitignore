@@ -57,6 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# For the Mac folks
+.DS_Store
 
 src/assets/public/css/
 src/server/config/serviceAccountKey.json
