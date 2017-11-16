@@ -17,10 +17,11 @@ export default class CausePage extends React.Component {
     let {params} = this.props.match;
 
     // Load data from API here, store in state
-    Api.loadCause(params.causeId)
-    .then((res) => {
+    Api.getCause(params.causeId)
+    .once('value')
+    .then((snapshot) => {
       this.setState({
-        cause: res
+        cause: snapshot.val()
       });
     })
     .catch(console.error);

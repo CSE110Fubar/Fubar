@@ -3,28 +3,28 @@ import nocache from 'superagent-no-cache';
 import pref from 'superagent-prefix';
 import request from 'superagent';
 
-import {promisify} from './helpers';
+import Firebase from '~/Firebase';
 
-const API_URL_PREFIX = '/api';
-
-const apiPrefix = pref(API_URL_PREFIX);
 const cookies = new Cookies();
+
+const db = Firebase.database();
 
 /**
  * Request a list of all causes.
- * @returns {Promise} A promise of the request.
  */
-export const loadAllCauses = () =>
-  promisify(request
-    .get('/causes')
-    .use(apiPrefix));
+export const getCausesRef = () =>
+  db.ref('/causes')
 
 /**
  * Request information about a given Cause.
  * @param {String} causeId The ID of the cause to fetch
- * @returns {Promise} A promise of the request
  */
-export const loadCause = (causeId) =>
-  promisify(request
-    .get('/causes/' + causeId)
-    .use(apiPrefix));
+export const getCause = (causeId) =>
+  db.ref('/causes').child(causeId);
+
+/**
+ * Request information about a given Figure.
+ * @param {String} figureId The ID of the figure to fetch
+ */
+export const getPublicFigure = (figureId) =>
+db.ref('/publicFigures').child(figureId);

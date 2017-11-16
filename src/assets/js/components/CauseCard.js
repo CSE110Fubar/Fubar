@@ -3,9 +3,14 @@ import {Link} from 'react-router-dom';
 
 export default class CauseCard extends React.Component {
 	render() {
-    let {cause, causeId} = this.props;
+    let {cause, causeId, large} = this.props;
 
-		return (<div className="col-sm-3">
+    let size = "col-sm-3";
+    if (large) {
+      size = "col-sm-6";
+    }
+
+		return (<div className={size}>
       <div className="card">
         <img src={cause.image} className="card-img-top"/>
         <div className="card-block">

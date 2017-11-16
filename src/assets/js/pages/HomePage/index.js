@@ -2,8 +2,7 @@ import React from 'react';
 
 import * as Api from '~/data/Api';
 import Hero from '~/components/Hero';
-
-import CauseCard from './components/CauseCard';
+import CauseCard from '~/components/CauseCard';
 
 export default class HomePage extends React.Component {
   constructor(props) {
@@ -17,13 +16,10 @@ export default class HomePage extends React.Component {
 
   componentWillMount() {
     // Load data from API here, store in state
-    Api.loadAllCauses()
-    .then((res) => {
-      this.setState({
-        causes: res
-      });
-    })
-    .catch(console.error);
+    let causes = Api.getCausesRef();
+    causes.once('value').then((snapshot) =>
+      this.setState({causes: snapshot.val()})
+    );
   }
 
 	render() {
