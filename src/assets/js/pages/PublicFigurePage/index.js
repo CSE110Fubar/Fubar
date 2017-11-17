@@ -64,6 +64,7 @@ export default class PublicFigurePage extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col-md-8">
+          <img src={figure.image} className="figure__image" />
             <h1>{figure.name}</h1>
             <h2>{figure.title}</h2>
           </div>
