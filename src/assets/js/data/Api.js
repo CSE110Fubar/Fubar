@@ -16,6 +16,12 @@ export const getCausesRef = () =>
   db.ref('/causes')
 
 /**
+ * Request a list of all active petitions.
+ */
+export const getPetitionsRef = () =>
+  db.ref('/petitions')
+
+/**
  * Reuest a list of public figures
  */
  export const getPublicFigureResults = () =>

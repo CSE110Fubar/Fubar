@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
 
 import HomePage from './pages/HomePage';
 import CausePage from './pages/CausePage';
+import PetitionsPage from './pages/PetitionsPage';
 import PublicFigurePage from './pages/PublicFigurePage';
 import SettingsPage from './pages/SettingsPage';
 import SearchResultPage from './pages/SearchResultPage';
@@ -16,6 +17,7 @@ export default class App extends React.Component {
 					<Route path="/figures/:figureId" component={PublicFigurePage} />
 					<Route path="/settings/" component={SettingsPage}/>
 					<Route path="/results/" component={SearchResultPage} />
+					<Route path="/petitions/" component={PetitionsPage} />
 				</Switch>
 			</Router>
 		);
