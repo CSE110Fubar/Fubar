@@ -40,22 +40,52 @@ export default class CausePage extends React.Component {
         <div className="row">
           <div className="col-12">
             <h1 className="cause-page__header">{cause.name}</h1>
+            <button className="btn btn-outline-primary column__cta">Follow</button>
           </div>
           <div className="col-12">
-            <h2 className="cause-page__description">{cause.description}</h2>
+            <h4 className="cause-page__description">{cause.description}</h4>
           </div>
         </div>
+
+        <div className="row">
+          <div className="col-8">
+            <h2>Related News Articles</h2>
+          </div>
+          <div className="col-2">
+            <p>{cause.supportingUsers.length} Supporters</p>
+            <hr />
+            <button className="btn btn-outline-primary column__cta">Support Cause</button>
+          </div>
+          <div className="col-2">
+            <p>{cause.supportingUsers.length} Opposers</p>
+            <hr />
+            <button className="btn btn-outline-primary column__cta">Oppose Cause</button>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-12">
+            <h2>Facebook Events</h2>
+
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-12">
+            <h2>Related Public Figures</h2>
+          </div>
+        </div>
+
         <div className="row">
           <div className="col-6 column">
-            <h2>Support</h2>
+            <h3>Supporters</h3>
             <hr />
-            <button className="btn btn-outline-primary column__cta">Support this Cause</button>
-            <p className="column__info"></p>
+            <p></p>
           </div>
           <div className="col-6 column column--secondary">
-            <h2>Oppose</h2>
+            <h3>Opposers</h3>
             <hr />
-            <button className="btn btn-outline-primary column__cta">Oppose this Cause</button>
+
           </div>
         </div>
       </div>
