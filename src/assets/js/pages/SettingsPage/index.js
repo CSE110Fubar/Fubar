@@ -20,37 +20,32 @@ export default class SettingsPage extends React.Component {
     // Load data from API here, store in state
     let causes = Api.getCausesRef();
     causes.once('value').then((snapshot) =>
-      this.setState({causes: snapshot.val()})
+      this.setState({ causes: snapshot.val() })
     );
     let figures = Api.getPublicFigureResults();
     figures.once('value').then((snapshot) =>
-      this.setState({figures: snapshot.val()})
+      this.setState({ figures: snapshot.val() })
     );
   }
 
-	render() {
-    let {causes} = this.state;
-    let {figures} = this.state;
+  render() {
+    let { causes } = this.state;
+    let { figures } = this.state;
 
-		return (<div className="home-page">
+    return (<div class="home-page">
       <Hero />
-      <div className="container">
-        <div className="row">
-          <div className="col-md-8">
-            <h1>Settings</h1>
-          </div>
-          <div className="col-md-8">
-            <h3>Facebook Visibility</h3>
-
-            <h3>Causes I'm Following</h3>
-            <CauseCard cause={causes["cause_1"]} causeId={"cause_1"} key={"c1"} />
-
-            <h3>People I'm Following</h3>
-            <PublicFigureCard publicFigure={figures["publicFigure_1"]} publicFigureId={"publicFigure_1"} key={"daddy"}  />
-
-          </div>
+      <div class="container">
+        <h1>Settings</h1>
+        <h3>Causes I'm Following</h3>
+        <div class="row">
+          <CauseCard cause={causes["cause_1"]} causeId={"cause_1"} key={"c1"} />
+        </div>
+        <h3>People I'm Following</h3>
+        <div class="row">
+          
+          <PublicFigureCard publicFigure={figures["publicFigure_1"]} publicFigureId={"publicFigure_1"} key={"daddy"} />
         </div>
       </div>
     </div>);
-	}
+  }
 }
