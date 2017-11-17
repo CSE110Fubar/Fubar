@@ -2,7 +2,7 @@ import React from 'react';
 
 import * as Api from '~/data/Api';
 import Hero from '~/components/Hero';
-import PetitionCard from '~/pages/PetitionsPage/components/PetitionCard';
+import PetitionCard from '~/components/PetitionCard';
 
 export default class PetitionsPage extends React.Component {
   constructor(props) {
