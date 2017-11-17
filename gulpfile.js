@@ -29,15 +29,16 @@ gulp.task('css', function () {
   .pipe(rename({ suffix: '.min' }))
   .pipe(sourcemaps.write())
   .pipe(gulp.dest('src/assets/public/css'))
-  .pipe(browserSync.reload({stream:true}));
+  .on('end', function() {
+    browserSync.reload();
+  });
 });
 
 gulp.task('nodemon', ['css'], function(cb) {
   return nodemon({
     script: 'src/server/index.js',
-    ext: 'js html scss css',
+    ext: 'js html',
     watch: paths.src,
-    legacyWatch: true,    
     env: {
       'NODE_ENV': 'development',
       'PORT': 3000
@@ -70,6 +71,5 @@ gulp.task('bs-reload', function () {
 });
 
 gulp.task('default', ['css', 'browser-sync'], function () {
-  gulp.watch("src/scss/**/*.scss", ['css']);
-  gulp.watch("app/*.html", ['bs-reload']);
+  gulp.watch("src/assets/scss/**/*.scss", ['css']);
 });

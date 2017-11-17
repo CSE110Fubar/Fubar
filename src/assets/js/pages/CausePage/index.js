@@ -3,6 +3,8 @@ import React from 'react';
 import * as Api from '~/data/Api';
 import Hero from '~/components/Hero';
 
+import StanceBar from './components/StanceBar';
+
 export default class CausePage extends React.Component {
   constructor(props) {
     super(props);
@@ -39,8 +41,10 @@ export default class CausePage extends React.Component {
       <div className="container cause-page__content">
         <div className="row">
           <div className="col-12">
-            <h1 className="cause-page__header">{cause.name}</h1>
-            <button className="btn btn-outline-primary column__cta">Follow</button>
+            <h1 className="cause-page__header">
+              {cause.name}{' '}
+              <button className="btn">Follow</button>
+            </h1>
           </div>
           <div className="col-12">
             <h4 className="cause-page__description">{cause.description}</h4>
@@ -51,15 +55,25 @@ export default class CausePage extends React.Component {
           <div className="col-8">
             <h2>Related News Articles</h2>
           </div>
-          <div className="col-2">
-            <p>{cause.supportingUsers.length} Supporters</p>
-            <hr />
-            <button className="btn btn-outline-primary column__cta">Support Cause</button>
-          </div>
-          <div className="col-2">
-            <p>{cause.supportingUsers.length} Opposers</p>
-            <hr />
-            <button className="btn btn-outline-primary column__cta">Oppose Cause</button>
+          <div className="col-4">
+            <StanceBar progress={cause.supportingUsers.length /
+              (cause.supportingUsers.length + cause.opposingUsers.length)} />
+            <div className="row">
+              <div className="col-6">
+                {cause.supportingUsers && cause.supportingUsers.length}{' '}
+                Supporters
+                <button className="btn btn-success">
+                  Support Cause
+                </button>
+              </div>
+              <div className="col-6">
+              {cause.opposingUsers && cause.opposingUsers.length}{' '}
+              Opposers
+                <button className="btn btn-danger">
+                  Oppose Cause
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -79,13 +93,9 @@ export default class CausePage extends React.Component {
         <div className="row">
           <div className="col-6 column">
             <h3>Supporters</h3>
-            <hr />
-            <p></p>
           </div>
-          <div className="col-6 column column--secondary">
+          <div className="col-6 column">
             <h3>Opposers</h3>
-            <hr />
-
           </div>
         </div>
       </div>

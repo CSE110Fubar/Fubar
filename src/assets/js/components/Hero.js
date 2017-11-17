@@ -10,10 +10,13 @@ export default class Hero extends React.Component {
     let heroStyle = {};
     let heroClass = "hero";
     let headerClass = "hero__header";
+    let loginClass = "hero__login";
+
     if (background) {
       heroStyle['backgroundImage'] = `url(${background})`;
       heroClass += " hero--expanded";
       headerClass += " hero__header--expanded";
+      loginClass += " hero__login--inverse";
     }
 
     return (<div className={heroClass} style={heroStyle}>
@@ -28,7 +31,7 @@ export default class Hero extends React.Component {
               <input type="text" placeholder="Search" className="form-control" />
             </div>
           </div>
-          <div className="col-md-3 text-center text-md-right hero__login">
+          <div className={`col-md-3 text-center text-md-right ${loginClass}`}>
             <Login />
           </div>
         </div>

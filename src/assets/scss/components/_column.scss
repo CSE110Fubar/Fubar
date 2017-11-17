@@ -1,6 +1,4 @@
 .column {
-  background: darken($white, 2%);
-
   &:not(:first-child) {
     border-left: 1px solid darken($white, 10%);
   }

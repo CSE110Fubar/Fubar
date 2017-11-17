@@ -10,6 +10,7 @@ const auth = FirebaseApp.auth();
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       user: {}
     };
@@ -39,6 +40,7 @@ export default class Login extends React.Component {
 
   render() {
     let {user} = this.state;
+
     if (user) {
       return (<div>
         {user.displayName}&nbsp;

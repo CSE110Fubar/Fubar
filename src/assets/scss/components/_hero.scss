@@ -21,6 +21,12 @@
     }
   }
 
+  &__login {
+    &--inverse {
+      color: $white;
+    }
+  }
+
   &--expanded {
     padding: 2rem 0 10rem;
   }
