@@ -2,7 +2,7 @@ import React from 'react';
 
 import * as Api from '~/data/Api';
 import Hero from '~/components/Hero';
-
+import EventCard from './components/EventCard';
 import StanceBar from './components/StanceBar';
 
 export default class CausePage extends React.Component {
@@ -11,7 +11,8 @@ export default class CausePage extends React.Component {
 
     // Placeholder state
     this.state = {
-      cause: {}
+      cause: {},
+      events: {}
     };
   }
 
@@ -20,17 +21,27 @@ export default class CausePage extends React.Component {
 
     // Load data from API here, store in state
     Api.getCause(params.causeId)
-    .once('value')
-    .then((snapshot) => {
-      this.setState({
-        cause: snapshot.val()
-      });
-    })
-    .catch(console.error);
+        .once('value')
+        .then((snapshot) => {
+          this.setState({
+            cause: snapshot.val()
+          });
+
+          snapshot.val().events.map((eventId) => {
+            Api.getEvents(eventId)
+                .once('value')
+                .then((snapshot) => {
+                  this.setState({
+                    events: {...this.state.events, [eventId]: snapshot.val()}
+                  });
+                });
+          })
+        })
+        .catch(console.error);
   }
 
 	render() {
-    let {cause} = this.state;
+    let {cause, events} = this.state;
 
     if (!cause) {
       return <div>Loading...</div>;
@@ -80,7 +91,9 @@ export default class CausePage extends React.Component {
         <div className="row">
           <div className="col-12">
             <h2>Facebook Events</h2>
-
+            {Object.keys(events).map((eventId) =>
+                <EventCard event={events[eventId]} eventId={eventId} key={eventId} />
+            )}
           </div>
         </div>
 

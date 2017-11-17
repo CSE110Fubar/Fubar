@@ -22,10 +22,16 @@ export const getPetitionsRef = () =>
   db.ref('/petitions')
 
 /**
- * Reuest a list of public figures
+ * Request a list of public figures
  */
  export const getPublicFigureResults = () =>
   db.ref('/publicFigures')
+
+/**
+ * Request a list of events
+ */
+export const getEventsRef = () =>
+    db.ref('/events')
 
 /**
  * Request information about a given Cause.
@@ -39,4 +45,11 @@ export const getCause = (causeId) =>
  * @param {String} figureId The ID of the figure to fetch
  */
 export const getPublicFigure = (figureId) =>
-db.ref('/publicFigures').child(figureId);
+  db.ref('/publicFigures').child(figureId);
+
+/**
+ * Request information about a given Event.
+ * @param {String} eventId The ID of the event to fetch
+ */
+export const getEvents = (eventId) =>
+    db.ref('/events').child(eventId);
