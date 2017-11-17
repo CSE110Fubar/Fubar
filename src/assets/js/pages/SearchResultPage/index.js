@@ -25,12 +25,11 @@ export default class SearchResultPage extends React.Component {
 
 	render() {
     let {results} = this.state;
-    console.log(results);
 
-		return (<div className="search-result-page">
+		return (<div className="results-page">
       <Hero />
       <div className="container">
-        <h1 className="result-page__header">Results</h1>
+        <h1 className="results-page__header">Results</h1>
         <div className="row">
           {Object.keys(results).map((publicFigureId) => 
             <PublicFigureCard publicFigure={results[publicFigureId]} publicFigureId={publicFigureId} key={publicFigureId} />
