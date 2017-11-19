@@ -46,22 +46,28 @@ export default class Login extends React.Component {
       return (<div>
         {user.displayName}&nbsp;
         <div className="dropdown d-inline">
-          <button className="btn btn-outline-secondary" type="button"
+          <button className="btn settings-button" type="button"
             id="settingsDropdown" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
-            <i className="fa fa-gear"></i>
+            <i className="fa fa-angle-down"></i>
           </button>
           <div className="dropdown-menu" aria-labelledby="settingsDropdown">
             <Link to="/settings" className="dropdown-item" href="#">
-              Settings
+              <i className="fa fa-cogs"></i> Settings
             </Link>
-            <a className="dropdown-item" href="#" onClick={this.logout}>Logout</a>
+            <a className="dropdown-item" href="#" onClick={this.logout}>
+              <i className="fa fa-sign-out"></i> Logout
+            </a>
           </div>
         </div>
       </div>);
     }
-    return (<button onClick={this.login} type="button" className="btn btn-info">
-      Login with Facebook
+    return (<button onClick={this.login} type="button"
+      className="btn btn-primary">
+      <span class="fa-stack">
+        <i className="fa fa-square-o fa-stack-2x fa-inverse"></i>
+        <i className="fa fa-facebook fa-stack-1x fa-inverse"></i>
+      </span> Login
     </button>);
   }
 }

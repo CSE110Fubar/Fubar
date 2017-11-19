@@ -35,18 +35,22 @@ export default class SettingsPage extends React.Component {
       <Hero />
       <div class="container">
         <h1>Settings</h1>
-        <h3>Causes I'm Following</h3>
-        <div class="row">
+        <section className="row cause-page__section">
+          <div className="col-12">
+            <h3 className="cause-page__section-header">Causes You Follow</h3>
+          </div>
           {Object.keys(causes).map((causeId) => 
             <CauseCard cause={causes[causeId]} causeId={causeId} key={causeId} />
           )}
-        </div>
-        <h3>People I'm Following</h3>
-        <div class="row">
+        </section>
+        <section className="row cause-page__section">
+          <div className="col-12">
+            <h3 className="cause-page__section-header">People You Follow</h3>
+          </div>
           {Object.keys(figures).map((figureId) =>
             <PublicFigureCard publicFigure={figures[figureId]} publicFigureId={figureId} />
           )}
-        </div>
+        </section>
       </div>
     </div>);
   }

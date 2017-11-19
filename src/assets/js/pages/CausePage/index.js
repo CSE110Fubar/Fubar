@@ -15,6 +15,7 @@ export default class CausePage extends React.Component {
     this.state = {
       user: {},
       cause: {},
+      news: {},
       events: {},
       supportingFigures: {},
       opposingFigures: {}
@@ -70,7 +71,8 @@ export default class CausePage extends React.Component {
   }
 
 	render() {
-    let {cause, events, supportingFigures, opposingFigures, user} = this.state;
+    let {cause, events, news,
+      supportingFigures, opposingFigures, user} = this.state;
 
     if (!cause.name) {
       return <div>Loading...</div>;
@@ -91,9 +93,9 @@ export default class CausePage extends React.Component {
           </div>
         </div>
 
-        <div className="row">
+        <section className="row cause-page__section">
           <div className="col-8">
-            <h3>Related News Articles</h3>
+            <h3 className="cause-page__section-header">Related News Articles</h3>
           </div>
           <div className="col-4">
             <StanceBar progress={cause.supportingUsers.length /
@@ -103,48 +105,55 @@ export default class CausePage extends React.Component {
                 {cause.supportingUsers && cause.supportingUsers.length}{' '}
                 Supporters
                 {user && <button className="btn btn-success">
-                  Support Cause
+                  Support
                 </button>}
               </div>
               <div className="col-6">
               {cause.opposingUsers && cause.opposingUsers.length}{' '}
               Opposers
                 {user && <button className="btn btn-danger">
-                  Oppose Cause
+                  Oppose
                 </button>}
               </div>
             </div>
           </div>
-        </div>
+          {!news && <div className="col-12">No News Articles</div>}
+        </section>
 
-        <h3>Facebook Events</h3>
-        <div className="row">
+        <section className="row cause-page__section">
+          <div className="col-12">
+            <h3 className="cause-page__section-header">Facebook Events</h3>
+          </div>
+          {!events && <div className="col-12">No Events</div>}
           {Object.keys(events).map((eventId) => 
             <div className="col-md-4" key={eventId}>
               <EventCard event={events[eventId]} eventId={eventId} />
             </div>
           )}
-        </div>
+        </section>
 
-        <div className="row">
+        <section className="row cause-page__section">
           <div className="col-6">
-            <h3>Supporters</h3>
+            <h3 className="cause-page__section-header">Supporters</h3>
           </div>
           <div className="col-6">
-            <h3>Opposers</h3>
+            <h3 className="cause-page__section-header">Opposers</h3>
           </div>
-        </div>
-        
-        <div className="row">
           <div className="col-6">
+            {!supportingFigures && <div className="col-12">None</div>}
             {Object.keys(supportingFigures).map((figureId) => 
               <PublicFigureCard publicFigure={supportingFigures[figureId]}
                 publicFigureId={figureId} key={figureId} />
             )}
           </div>
           <div className="col-6">
+            {!opposingFigures && <div className="col-12">None</div>}
+            {Object.keys(opposingFigures).map((figureId) => 
+              <PublicFigureCard publicFigure={opposingFigures[figureId]}
+                publicFigureId={figureId} key={figureId} />
+            )}
           </div>
-        </div>
+        </section>
       </div>
     </div>);
 	}

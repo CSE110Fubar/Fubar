@@ -35,6 +35,18 @@ a {
   }
 }
 
-.card-block {
-  padding: 1.5em;
+.settings-button {
+  background-color: transparent;
+  color: $brand-color;
+  padding: 0.07rem 0.3rem;
+
+  &:focus {
+    outline: 0;
+    box-shadow: none;
+  }
+
+  &:hover {
+    background-color: $brand-color;
+    color: $white;
+  }
 }

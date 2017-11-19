@@ -3,6 +3,17 @@
     margin-top: -3.5rem;
   }
 
+  &__section {
+    margin-top: 1rem;
+  }
+
+  &__section-header {
+    color: #555;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
+
   &__header {
     color: $white;
   }

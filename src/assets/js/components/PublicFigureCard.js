@@ -14,7 +14,7 @@ export default class PublicFigureCard extends React.Component {
     }
 
 		return (<div className={size}>
-      <Link to={`/publicFigure/${publicFigureId}`} className={cardClass}>
+      <Link to={`/figures/${publicFigureId}`} className={cardClass}>
         <img src={publicFigure.image} className="card-img-top"/>
         <div className="card-block">
           <div className="card-text card__header">
