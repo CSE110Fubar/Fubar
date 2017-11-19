@@ -14,15 +14,15 @@ export default class PublicFigureCard extends React.Component {
     }
 
 		return (<div className={size}>
-      <div className={cardClass}>
+      <Link to={`/publicFigure/${publicFigureId}`} className={cardClass}>
         <img src={publicFigure.image} className="card-img-top"/>
         <div className="card-block">
-          <Link to={`/publicFigure/${publicFigureId}`} className="card-text card__header">
+          <div className="card-text card__header">
             {publicFigure.name}
-          </Link>
+          </div>
           <p>{publicFigure.title}</p>
         </div>
-      </div>
+      </Link>
     </div>);
 	}
 }

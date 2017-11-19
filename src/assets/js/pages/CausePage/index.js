@@ -1,5 +1,6 @@
 import React from 'react';
 
+import checkAuth from '~/data/Auth';
 import * as Api from '~/data/Api';
 import Hero from '~/components/Hero';
 import PublicFigureCard from '~/components/PublicFigureCard';
@@ -12,6 +13,7 @@ export default class CausePage extends React.Component {
 
     // Placeholder state
     this.state = {
+      user: {},
       cause: {},
       events: {},
       supportingFigures: {},
@@ -20,6 +22,8 @@ export default class CausePage extends React.Component {
   }
 
   componentWillMount() {
+    checkAuth((user) => this.setState({user: user}));
+
     let {params} = this.props.match;
 
     // Load data from API here, store in state
@@ -30,17 +34,17 @@ export default class CausePage extends React.Component {
         cause: snapshot.val()
       });
 
-      snapshot.val().events.map((eventId) => {
+      snapshot.val().events.map((eventId) => 
         Api.getEvent(eventId)
           .once('value')
           .then((snapshot) => {
             this.setState({
               events: {...this.state.events, [eventId]: snapshot.val()}
             });
-          });
-      });
+          })
+      );
 
-      snapshot.val().supportingPublicFigures.map((figureId) => {
+      snapshot.val().supportingPublicFigures.map((figureId) => 
         Api.getPublicFigure(figureId)
           .once('value')
           .then((snapshot) => {
@@ -48,10 +52,10 @@ export default class CausePage extends React.Component {
               supportingFigures: {...this.state.supportingFigures,
                 [figureId]: snapshot.val()}
             });
-          });
-      });
+          })
+      );
 
-      snapshot.val().opposingPublicFigures.map((figureId) => {
+      snapshot.val().opposingPublicFigures.map((figureId) =>
         Api.getPublicFigure(figureId)
           .once('value')
           .then((snapshot) => {
@@ -59,14 +63,14 @@ export default class CausePage extends React.Component {
               opposingFigures: {...this.state.opposingFigures,
                 [figureId]: snapshot.val()}
             });
-          });
-      });
+          })
+      );
     })
     .catch(console.error);
   }
 
 	render() {
-    let {cause, events, supportingFigures, opposingFigures} = this.state;
+    let {cause, events, supportingFigures, opposingFigures, user} = this.state;
 
     if (!cause.name) {
       return <div>Loading...</div>;
@@ -79,7 +83,7 @@ export default class CausePage extends React.Component {
           <div className="col-12">
             <h1 className="cause-page__header">
               {cause.name}{' '}
-              <button className="btn">Follow</button>
+              <button href="#" className="btn btn-primary">Follow</button>
             </h1>
           </div>
           <div className="col-12">
@@ -98,16 +102,16 @@ export default class CausePage extends React.Component {
               <div className="col-6">
                 {cause.supportingUsers && cause.supportingUsers.length}{' '}
                 Supporters
-                <button className="btn btn-success">
+                {user && <button className="btn btn-success">
                   Support Cause
-                </button>
+                </button>}
               </div>
               <div className="col-6">
               {cause.opposingUsers && cause.opposingUsers.length}{' '}
               Opposers
-                <button className="btn btn-danger">
+                {user && <button className="btn btn-danger">
                   Oppose Cause
-                </button>
+                </button>}
               </div>
             </div>
           </div>

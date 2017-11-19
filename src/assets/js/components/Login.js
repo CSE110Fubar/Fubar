@@ -1,5 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
+import {Link} from 'react-router-dom';
 
 import FirebaseApp from '~/Firebase';
 import checkAuth from '~/data/Auth';
@@ -17,7 +18,7 @@ export default class Login extends React.Component {
   };
 
   componentWillMount() {
-    checkAuth((user) => this.setState({user}));
+    checkAuth((user) => this.setState({user: user}));
   };
 
   login = () => {
@@ -44,9 +45,19 @@ export default class Login extends React.Component {
     if (user) {
       return (<div>
         {user.displayName}&nbsp;
-        <button onClick={this.logout} type="button" className="btn btn-info">
-          Logout
-        </button>
+        <div className="dropdown d-inline">
+          <button className="btn btn-outline-secondary" type="button"
+            id="settingsDropdown" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <i className="fa fa-gear"></i>
+          </button>
+          <div className="dropdown-menu" aria-labelledby="settingsDropdown">
+            <Link to="/settings" className="dropdown-item" href="#">
+              Settings
+            </Link>
+            <a className="dropdown-item" href="#" onClick={this.logout}>Logout</a>
+          </div>
+        </div>
       </div>);
     }
     return (<button onClick={this.login} type="button" className="btn btn-info">

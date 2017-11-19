@@ -17,6 +17,24 @@ a {
   }
 }
 
+.btn-primary {
+  background-color: $brand-color;
+  border-color: $brand-color;
+
+  &:hover, &:focus, &:not([disabled]):not(.disabled):active {
+    background-color: darken($brand-color, 5%);
+    border-color: darken($brand-color, 6%);
+  }
+  
+  &:not([disabled]):not(.disabled):active {
+    box-shadow: 0 0 0 0.2rem transparentize($brand-color, 0.5);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem transparentize($brand-color, 0.5);
+  }
+}
+
 .card-block {
   padding: 1.5em;
 }
