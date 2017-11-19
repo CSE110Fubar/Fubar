@@ -1,9 +1,55 @@
 .card {
+  position: relative;
+  font-size: 0.8rem;
+
+  &:before {
+    padding: 0.5rem;
+    top: 0;
+    left: 0;
+    position: absolute;
+    font-size: 0.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  &--cause {
+    &:before {
+      content: 'Cause';
+      color: $white;
+    }
+  }
+
+  &--event {
+    &:before {
+      content: 'Event';
+    }
+  }
+
+  &--petition {
+    &:before {
+      content: 'Petition';
+    }
+  }
+
+  &--small {
+    font-size: 0.8rem;
+    line-height: 1.2;
+
+    .card-block {
+      padding: 0.5rem;
+    }
+  }
+
   &__header {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 
   &__description {
     color: #000;
+  }
+
+  &__location {
+    color: lighten(#000, 50%);
+    margin-bottom: 0;
   }
 }

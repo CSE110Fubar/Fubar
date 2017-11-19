@@ -11,7 +11,7 @@ export default class CauseCard extends React.Component {
     }
 
     return (<div className={size}>
-      <Link to={`/causes/${causeId}`} className="card">
+      <Link to={`/causes/${causeId}`} className="card card--cause">
         <img src={cause.image} className="card-img-top" />
         <div className="card-block">
           <div className="card-text card__header">

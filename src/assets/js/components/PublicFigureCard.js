@@ -6,12 +6,15 @@ export default class PublicFigureCard extends React.Component {
     let {publicFigure, publicFigureId, large} = this.props;
 
     let size = "col-sm-3";
+    let cardClass = "card";
     if (large) {
       size = "col-sm-6";
+    } else {
+      cardClass += " card--small";
     }
 
 		return (<div className={size}>
-      <div className="card">
+      <div className={cardClass}>
         <img src={publicFigure.image} className="card-img-top"/>
         <div className="card-block">
           <Link to={`/publicFigure/${publicFigureId}`} className="card-text card__header">

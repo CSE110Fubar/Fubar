@@ -1,8 +1,13 @@
 import React from 'react';
+import moment from 'moment';
 
 export default class EventCard extends React.Component {
 	render() {
     let {event, eventId} = this.props;
+    const dateFormat = "MMM Do [at] h:mm a";
+
+    let startTime = moment(event.startDate).format(dateFormat),
+      endTime = moment(event.endDate).format(dateFormat);
 
 		return (<div className="col-sm-12">
       <div className="card">
@@ -10,12 +15,13 @@ export default class EventCard extends React.Component {
           <div className="card-text card__header">
             {event.name}
           </div>
-          <p className="card__description">{event.description}</p>
           <p className="card__description">
-            Start Date: {event.startDate} <br/>
-            End Date: {event.endDate} <br/>
-            Location: {event.location} <br/>
-            Address: {event.address} <br/>
+            {event.description} <br/>
+            <i className="fa fa-clock-o"></i> {startTime} Until {endTime} <br/>
+          </p>
+          <p className="card__location">
+            <i className="fa fa-map-marker"></i> {event.location} <br/>
+            <i className="fa fa-location-arrow"></i> {event.address} <br/>
           </p>
         </div>
       </div>

@@ -2,6 +2,7 @@ import React from 'react';
 
 import * as Api from '~/data/Api';
 import Hero from '~/components/Hero';
+import PublicFigureCard from '~/components/PublicFigureCard';
 import EventCard from './components/EventCard';
 import StanceBar from './components/StanceBar';
 
@@ -12,7 +13,9 @@ export default class CausePage extends React.Component {
     // Placeholder state
     this.state = {
       cause: {},
-      events: {}
+      events: {},
+      supportingFigures: {},
+      opposingFigures: {}
     };
   }
 
@@ -21,29 +24,51 @@ export default class CausePage extends React.Component {
 
     // Load data from API here, store in state
     Api.getCause(params.causeId)
-        .once('value')
-        .then((snapshot) => {
-          this.setState({
-            cause: snapshot.val()
-          });
+    .once('value')
+    .then((snapshot) => {
+      this.setState({
+        cause: snapshot.val()
+      });
 
-          snapshot.val().events.map((eventId) => {
-            Api.getEvents(eventId)
-                .once('value')
-                .then((snapshot) => {
-                  this.setState({
-                    events: {...this.state.events, [eventId]: snapshot.val()}
-                  });
-                });
-          })
-        })
-        .catch(console.error);
+      snapshot.val().events.map((eventId) => {
+        Api.getEvent(eventId)
+          .once('value')
+          .then((snapshot) => {
+            this.setState({
+              events: {...this.state.events, [eventId]: snapshot.val()}
+            });
+          });
+      });
+
+      snapshot.val().supportingPublicFigures.map((figureId) => {
+        Api.getPublicFigure(figureId)
+          .once('value')
+          .then((snapshot) => {
+            this.setState({
+              supportingFigures: {...this.state.supportingFigures,
+                [figureId]: snapshot.val()}
+            });
+          });
+      });
+
+      snapshot.val().opposingPublicFigures.map((figureId) => {
+        Api.getPublicFigure(figureId)
+          .once('value')
+          .then((snapshot) => {
+            this.setState({
+              opposingFigures: {...this.state.opposingFigures,
+                [figureId]: snapshot.val()}
+            });
+          });
+      });
+    })
+    .catch(console.error);
   }
 
 	render() {
-    let {cause, events} = this.state;
+    let {cause, events, supportingFigures, opposingFigures} = this.state;
 
-    if (!cause) {
+    if (!cause.name) {
       return <div>Loading...</div>;
     }
 
@@ -64,7 +89,7 @@ export default class CausePage extends React.Component {
 
         <div className="row">
           <div className="col-8">
-            <h2>Related News Articles</h2>
+            <h3>Related News Articles</h3>
           </div>
           <div className="col-4">
             <StanceBar progress={cause.supportingUsers.length /
@@ -88,27 +113,32 @@ export default class CausePage extends React.Component {
           </div>
         </div>
 
+        <h3>Facebook Events</h3>
         <div className="row">
-          <div className="col-12">
-            <h2>Facebook Events</h2>
-            {Object.keys(events).map((eventId) =>
-                <EventCard event={events[eventId]} eventId={eventId} key={eventId} />
-            )}
-          </div>
+          {Object.keys(events).map((eventId) => 
+            <div className="col-md-4" key={eventId}>
+              <EventCard event={events[eventId]} eventId={eventId} />
+            </div>
+          )}
         </div>
 
         <div className="row">
-          <div className="col-12">
-            <h2>Related Public Figures</h2>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-6 column">
+          <div className="col-6">
             <h3>Supporters</h3>
           </div>
-          <div className="col-6 column">
+          <div className="col-6">
             <h3>Opposers</h3>
+          </div>
+        </div>
+        
+        <div className="row">
+          <div className="col-6">
+            {Object.keys(supportingFigures).map((figureId) => 
+              <PublicFigureCard publicFigure={supportingFigures[figureId]}
+                publicFigureId={figureId} key={figureId} />
+            )}
+          </div>
+          <div className="col-6">
           </div>
         </div>
       </div>
