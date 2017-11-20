@@ -5,10 +5,10 @@ export default class PublicFigureCard extends React.Component {
 	render() {
     let {publicFigure, publicFigureId, large} = this.props;
 
-    let size = "col-sm-3";
+    let size = "col-lg-3 col-md-4";
     let cardClass = "card";
     if (large) {
-      size = "col-sm-6";
+      size = "col-md-6";
     } else {
       cardClass += " card--small";
     }

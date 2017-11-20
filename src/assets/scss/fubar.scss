@@ -36,9 +36,9 @@ a {
 }
 
 .settings-button {
-  background-color: transparent;
-  color: $brand-color;
-  padding: 0.07rem 0.3rem;
+  background-color: $brand-color;
+  color: $white;
+  display: inline-block;
 
   &:focus {
     outline: 0;
@@ -46,7 +46,7 @@ a {
   }
 
   &:hover {
-    background-color: $brand-color;
+    background-color: darken($brand-color, 5%);
     color: $white;
   }
 }
