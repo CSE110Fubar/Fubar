@@ -52,4 +52,11 @@ export const getPublicFigure = (figureId) =>
  * @param {String} eventId The ID of the event to fetch
  */
 export const getEvent = (eventId) =>
-    db.ref('/events').child(eventId);
+  db.ref('/events').child(eventId);
+
+/**
+ * Request information about a given News article.
+ * @param {String} newsId The ID of the article to fetch
+ */
+export const getNews = (newsId) =>
+  db.ref('/news').child(newsId);

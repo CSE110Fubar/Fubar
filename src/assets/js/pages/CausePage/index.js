@@ -5,6 +5,7 @@ import * as Api from '~/data/Api';
 import Hero from '~/components/Hero';
 import PublicFigureCard from '~/components/PublicFigureCard';
 import EventCard from './components/EventCard';
+import NewsCard from './components/NewsCard';
 import StanceBar from './components/StanceBar';
 
 export default class CausePage extends React.Component {
@@ -66,6 +67,17 @@ export default class CausePage extends React.Component {
             });
           })
       );
+
+      snapshot.val().news.map((newsId) =>
+        Api.getNews(newsId)
+          .once('value')
+          .then((snapshot) => {
+            this.setState({
+              news: {...this.state.news,
+                [newsId]: snapshot.val()}
+            });
+          })
+      );
     })
     .catch(console.error);
   }
@@ -88,14 +100,8 @@ export default class CausePage extends React.Component {
               <button href="#" className="btn btn-primary">Follow</button>
             </h1>
           </div>
-          <div className="col-12">
-            <h4 className="cause-page__description">{cause.description}</h4>
-          </div>
-        </div>
-
-        <section className="row cause-page__section">
           <div className="col-8">
-            <h3 className="cause-page__section-header">Related News Articles</h3>
+            <h4 className="cause-page__description">{cause.description}</h4>
           </div>
           <div className="col-4">
             <StanceBar progress={cause.supportingUsers.length /
@@ -117,7 +123,18 @@ export default class CausePage extends React.Component {
               </div>
             </div>
           </div>
+        </div>
+
+        <section className="row cause-page__section">
+          <div className="col-12">
+            <h3 className="cause-page__section-header">Related News Articles</h3>
+          </div>
           {!news && <div className="col-12">No News Articles</div>}
+          {Object.keys(news).map((newsId) => 
+            <div className="col-md-4" key={newsId}>
+              <NewsCard news={news[newsId]} newsId={newsId} />
+            </div>
+          )}
         </section>
 
         <section className="row cause-page__section">
