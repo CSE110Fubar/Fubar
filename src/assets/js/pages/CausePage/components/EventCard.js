@@ -9,7 +9,7 @@ export default class EventCard extends React.Component {
     let startTime = moment(event.startDate).format(dateFormat),
       endTime = moment(event.endDate).format(dateFormat);
 
-		return (
+		return (<div className="col-12">
       <a href={event.link} target="_new" className="card">
         <div className="card-block">
           <div className="card-text card__header">
@@ -24,6 +24,7 @@ export default class EventCard extends React.Component {
             <i className="fa fa-location-arrow"></i> {event.address} <br/>
           </p>
         </div>
-      </a>);
+      </a>
+    </div>);
 	}
 }
