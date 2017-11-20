@@ -63,12 +63,12 @@ export default class PublicFigurePage extends React.Component {
       <Hero/>
       <div className="container">
         <div className="row">
-          <div className="col-md-8">
-          <img src={figure.image} className="figure__image" />
+          <div className="col-md-8 figure-page__figure">
+          <img src={figure.image} className="figure-page__image" />
             <h1>{figure.name}</h1>
             <h2>{figure.title}</h2>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4 figure-page__contacts">
             Contact Information<br/>
             {figure.phoneNo}<br/>
             {figure.website}
@@ -76,14 +76,14 @@ export default class PublicFigurePage extends React.Component {
         </div>
 
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-6 figure-page__supporting">
             <h2>Supporting</h2>
             {Object.keys(supportedCauses).map((causeId) => 
               <CauseCard large cause={supportedCauses[causeId]}
                 causeId={causeId} key={causeId} />
             )}
           </div>
-          <div className="col-md-6">
+          <div className="col-md-6 figure-page__opposing">
             <h2>Opposing</h2>
             {Object.keys(opposedCauses).map((causeId) => 
               <CauseCard large cause={opposedCauses[causeId]} causeId={causeId}

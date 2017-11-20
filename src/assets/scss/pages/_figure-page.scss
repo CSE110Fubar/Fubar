@@ -1,0 +1,43 @@
+.figure-page {
+  &__image {
+    
+  }
+
+  &__contacts {
+    
+  }
+
+  &__figure {
+    
+  }
+
+  &__supporting {
+  
+  }
+
+  &__opposing {
+
+  }
+    &__content {
+    margin-top: -3.5rem;
+  }
+
+  &__section {
+    margin-top: 1rem;
+  }
+
+  &__section-header {
+    color: #555;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
+
+  &__header {
+    color: $white;
+  }
+
+  &__description {
+    margin: 1rem 0 2rem;
+  }
+}
