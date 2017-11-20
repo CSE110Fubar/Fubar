@@ -40,26 +40,34 @@ export default class SearchResultPage extends React.Component {
 	render() {
     let {causes, publicFigures, petitions} = this.state;
 
-		return (<div className="search-results-page">
+		return (<div className="results-page">
       <Hero />
       <div className="container">
-        <h1 className="search-results-page__header">Results</h1>
-        <h2>Causes</h2>
+        <h1 className="results-page__header">Results</h1>
+        <h2 className="results-page__section-header">Causes</h2>
         <div className="row">
           {Object.keys(causes).map((causeId) =>
-            <CauseCard cause={causes[causeId]} causeId={causeId} key={causeId} />
+            <div className="col-md-3" key={causeId}>
+              <CauseCard cause={causes[causeId]} causeId={causeId} />
+            </div>
           )}
         </div>
-        <h2>Public Figures</h2>
+        <h2 className="results-page__section-header">Public Figures</h2>
         <div className="row">
           {Object.keys(publicFigures).map((publicFigureId) => 
-            <PublicFigureCard publicFigure={publicFigures[publicFigureId]} publicFigureId={publicFigureId} key={publicFigureId} />
+            <div className="col-md-2" key={publicFigureId}>
+              <PublicFigureCard publicFigure={publicFigures[publicFigureId]}
+                publicFigureId={publicFigureId} />
+            </div>
           )}
         </div>
-        <h2>Petitions</h2>
+        <h2 className="results-page__section-header">Petitions</h2>
         <div className="row">
           {Object.keys(petitions).map((petitionId) => 
-            <PetitionCard petition={petitions[petitionId]} petitionId={petitionId} key={petitionId} />
+            <div className="col" key={petitionId}>
+              <PetitionCard petition={petitions[petitionId]}
+                petitionId={petitionId} />
+            </div>
           )}
         </div>
       </div>

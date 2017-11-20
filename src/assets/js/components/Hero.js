@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import Login from '~/components/Login';
 
 export default class Hero extends React.Component {
+  onSearch = (search) => {
+    console.log(search);
+  }
 
   render() {
     let { background } = this.props;
@@ -27,9 +30,9 @@ export default class Hero extends React.Component {
           </div>
 
           <div className="col-md-6 text-center">
-            <div className="form-group">
+            <form className="form-group" onSubmit={this.onSearch}>
               <input type="text" placeholder="Search" className="form-control" />
-            </div>
+            </form>
           </div>
           <div className={`col-md-3 text-center text-md-right ${loginClass}`}>
             <Login />
