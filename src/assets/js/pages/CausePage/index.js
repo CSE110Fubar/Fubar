@@ -36,7 +36,9 @@ export default class CausePage extends React.Component {
         cause: snapshot.val()
       });
 
-      snapshot.val().events.map((eventId) => 
+      let cause = snapshot.val();
+
+      cause.events && cause.events.map((eventId) => 
         Api.getEvent(eventId)
           .once('value')
           .then((snapshot) => {
@@ -46,7 +48,8 @@ export default class CausePage extends React.Component {
           })
       );
 
-      snapshot.val().supportingPublicFigures.map((figureId) => 
+      cause.supportingPublicFigures && 
+        cause.supportingPublicFigures.map((figureId) => 
         Api.getPublicFigure(figureId)
           .once('value')
           .then((snapshot) => {
@@ -57,7 +60,8 @@ export default class CausePage extends React.Component {
           })
       );
 
-      snapshot.val().opposingPublicFigures.map((figureId) =>
+      cause.opposingPublicFigures && 
+        cause.opposingPublicFigures.map((figureId) =>
         Api.getPublicFigure(figureId)
           .once('value')
           .then((snapshot) => {
@@ -68,7 +72,7 @@ export default class CausePage extends React.Component {
           })
       );
 
-      snapshot.val().news.map((newsId) =>
+      cause.news && cause.news.map((newsId) =>
         Api.getNews(newsId)
           .once('value')
           .then((snapshot) => {
@@ -85,6 +89,12 @@ export default class CausePage extends React.Component {
 	render() {
     let {cause, events, news,
       supportingFigures, opposingFigures, user} = this.state;
+
+    let stanceProgress = 0;
+    if (cause.supportingFigures && cause.opposingFigures) {
+      stanceProgress = cause.supportingUsers.length /
+        (cause.supportingUsers.length + cause.opposingUsers.length);
+    }
 
     if (!cause.name) {
       return <div>Loading...</div>;
@@ -104,19 +114,19 @@ export default class CausePage extends React.Component {
             <h4 className="cause-page__description">{cause.description}</h4>
           </div>
           <div className="col-4">
-            <StanceBar progress={cause.supportingUsers.length /
-              (cause.supportingUsers.length + cause.opposingUsers.length)} />
+            <StanceBar progress={stanceProgress} />
             <div className="row">
               <div className="col-6">
-                {cause.supportingUsers && cause.supportingUsers.length}{' '}
+                {cause.supportingUsers ? cause.supportingUsers.length : '0'}
+                {' '}
                 Supporters
                 {user && <button className="btn btn-success">
                   Support
                 </button>}
               </div>
               <div className="col-6">
-              {cause.opposingUsers && cause.opposingUsers.length}{' '}
-              Opposers
+                {cause.opposingUsers ? cause.opposingUsers.length : '0'}{' '}
+                Opposers
                 {user && <button className="btn btn-danger">
                   Oppose
                 </button>}
@@ -143,7 +153,6 @@ export default class CausePage extends React.Component {
               Facebook Events{' '}
               {user && <button className="btn btn-primary">Add an Event</button>}
             </h3>
-
           </div>
           {!events && <div className="col-12">No Events</div>}
           {Object.keys(events).map((eventId) => 
@@ -161,18 +170,26 @@ export default class CausePage extends React.Component {
             <h3 className="cause-page__section-header">Opposers</h3>
           </div>
           <div className="col-6">
-            {!supportingFigures && <div className="col-12">None</div>}
-            {Object.keys(supportingFigures).map((figureId) => 
-              <PublicFigureCard publicFigure={supportingFigures[figureId]}
-                publicFigureId={figureId} key={figureId} />
-            )}
+            <div className="row">
+              {!supportingFigures && <div className="col-12">None</div>}
+              {Object.keys(supportingFigures).map((figureId) => 
+                <div className="col-sm-6 col-lg-3">
+                  <PublicFigureCard publicFigure={supportingFigures[figureId]}
+                    publicFigureId={figureId} key={figureId} />
+                </div>
+              )}
+            </div>
           </div>
           <div className="col-6">
-            {!opposingFigures && <div className="col-12">None</div>}
-            {Object.keys(opposingFigures).map((figureId) => 
-              <PublicFigureCard publicFigure={opposingFigures[figureId]}
-                publicFigureId={figureId} key={figureId} />
-            )}
+            <div className="row">
+              {!opposingFigures && <div className="col-12">None</div>}
+              {Object.keys(opposingFigures).map((figureId) => 
+                <div className="col-sm-6 col-lg-3">
+                  <PublicFigureCard publicFigure={opposingFigures[figureId]}
+                    publicFigureId={figureId} key={figureId} />
+                </div>
+              )}
+            </div>
           </div>
         </section>
       </div>

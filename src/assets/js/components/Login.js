@@ -44,12 +44,11 @@ export default class Login extends React.Component {
 
     if (user) {
       return (<div>
-        {user.displayName}&nbsp;
         <div className="dropdown d-inline">
           <button className="btn settings-button" type="button"
             id="settingsDropdown" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
-            <i className="fa fa-angle-down"></i>
+            {user.displayName} <i className="fa fa-angle-down"></i>
           </button>
           <div className="dropdown-menu" aria-labelledby="settingsDropdown">
             <Link to="/settings" className="dropdown-item" href="#">

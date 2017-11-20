@@ -31,9 +31,9 @@ export default class SettingsPage extends React.Component {
     let { causes } = this.state;
     let { figures } = this.state;
 
-    return (<div class="home-page">
+    return (<div className="settings-page">
       <Hero />
-      <div class="container">
+      <div className="container">
         <h1>Settings</h1>
         <section className="row cause-page__section">
           <div className="col-12">
