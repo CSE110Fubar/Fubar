@@ -91,7 +91,7 @@ export default class CausePage extends React.Component {
       supportingFigures, opposingFigures, user} = this.state;
 
     let stanceProgress = 0;
-    if (cause.supportingFigures && cause.opposingFigures) {
+    if (cause.supportingUsers && cause.opposingUsers) {
       stanceProgress = cause.supportingUsers.length /
         (cause.supportingUsers.length + cause.opposingUsers.length);
     }
@@ -151,7 +151,10 @@ export default class CausePage extends React.Component {
           <div className="col-12">
             <h3 className="cause-page__section-header">
               Facebook Events{' '}
-              {user && <button className="btn btn-primary">Add an Event</button>}
+              {user && <a href="#">
+                <i className="cause-page__add-event fa fa-plus fa-plus-small">
+                </i>
+              </a>}
             </h3>
           </div>
           {!events && <div className="col-12">No Events</div>}
@@ -173,9 +176,9 @@ export default class CausePage extends React.Component {
             <div className="row">
               {!supportingFigures && <div className="col-12">None</div>}
               {Object.keys(supportingFigures).map((figureId) => 
-                <div className="col-sm-6 col-lg-3">
+                <div className="col-sm-6 col-lg-3" key={figureId}>
                   <PublicFigureCard publicFigure={supportingFigures[figureId]}
-                    publicFigureId={figureId} key={figureId} />
+                    publicFigureId={figureId} />
                 </div>
               )}
             </div>
@@ -184,9 +187,9 @@ export default class CausePage extends React.Component {
             <div className="row">
               {!opposingFigures && <div className="col-12">None</div>}
               {Object.keys(opposingFigures).map((figureId) => 
-                <div className="col-sm-6 col-lg-3">
+                <div className="col-sm-6 col-lg-3" key={figureId}>
                   <PublicFigureCard publicFigure={opposingFigures[figureId]}
-                    publicFigureId={figureId} key={figureId} />
+                    publicFigureId={figureId} />
                 </div>
               )}
             </div>
