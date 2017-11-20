@@ -8,6 +8,10 @@
   background-color: lighten($alert-color, 20%);
   margin-top: 1rem;
 
+  &--empty {
+    background-color: #AAA;
+  }
+
   &__support {
     width: 100%;
     height: 100%;
