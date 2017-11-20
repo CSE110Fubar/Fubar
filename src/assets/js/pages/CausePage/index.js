@@ -139,7 +139,11 @@ export default class CausePage extends React.Component {
 
         <section className="row cause-page__section">
           <div className="col-12">
-            <h3 className="cause-page__section-header">Facebook Events</h3>
+            <h3 className="cause-page__section-header">
+              Facebook Events{' '}
+              {user && <button className="btn btn-primary">Add an Event</button>}
+            </h3>
+
           </div>
           {!events && <div className="col-12">No Events</div>}
           {Object.keys(events).map((eventId) => 
