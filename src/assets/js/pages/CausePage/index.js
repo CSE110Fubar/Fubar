@@ -143,7 +143,6 @@ export default class CausePage extends React.Component {
               Facebook Events{' '}
               {user && <button className="btn btn-primary">Add an Event</button>}
             </h3>
-
           </div>
           {!events && <div className="col-12">No Events</div>}
           {Object.keys(events).map((eventId) => 

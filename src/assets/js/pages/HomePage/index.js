@@ -41,18 +41,22 @@ export default class HomePage extends React.Component {
           )}
         </div>}
 
-        <div className="column">
-          <h3>Up and Coming Causes</h3>
-        </div>
-        <div className="row">
-          {Object.keys(causes).map((causeId) =>
-              <CauseCard cause={causes[causeId]} causeId={causeId} key={causeId} />
-          )}
-        </div>
+        <section className="home-page__section">
+          <div className="column">
+            <h3>Up and Coming Causes</h3>
+          </div>
+          <div className="row">
+            {Object.keys(causes).map((causeId) =>
+                <CauseCard cause={causes[causeId]} causeId={causeId} key={causeId} />
+            )}
+          </div>
+        </section>
 
-        <div className="col-12 text-center">
-          <button>View Petitions</button>
-        </div>
+        <section className="home-page__section">
+          <div className="col-12 text-center">
+            <button className="btn btn-primary">View Petitions</button>
+          </div>
+        </section>
       </div>
     </div>);
 	}
