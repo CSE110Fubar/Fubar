@@ -75,7 +75,7 @@ export default class PublicFigurePage extends React.Component {
             <div className="figure-page__contacts">
             <i class="fa fa-phone" aria-hidden="true"></i> {figure.phoneNo}<br/>
             <i class="fa fa-globe" aria-hidden="true"></i> <a href={figure.website}
-              className="figure-page__website">{figure.website}</a>
+              className="figure-page__website">Personal Website</a>
             </div>
           </div>
         </div>
