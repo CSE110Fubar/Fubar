@@ -83,10 +83,14 @@ export default class PublicFigurePage extends React.Component {
         <div className="row figure-page__cause-row">
           <div className="col-md-6">
             <h2 className="cause-page__section-header">Supporting</h2>
-            {Object.keys(supportedCauses).map((causeId) => 
-              <CauseCard large cause={supportedCauses[causeId]}
-                causeId={causeId} key={causeId} />
-            )}
+            <div className="row">
+              {Object.keys(supportedCauses).map((causeId) => 
+                <div className="col-md-6">
+                  <CauseCard large cause={supportedCauses[causeId]}
+                    causeId={causeId} key={causeId} />
+                </div>
+              )}
+            </div>
           </div>
           <div className="col-md-6">
             <h2 className="cause-page__section-header">Opposing</h2>
