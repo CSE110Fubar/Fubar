@@ -26,10 +26,10 @@ export default class HomePage extends React.Component {
     );
   }
 
-	render() {
+  render() {
     let {causes, user} = this.state;
 
-		return (<div className="home-page">
+    return (<div className="home-page">
       <Hero />
       <div className="container">
         {user && <div className="column">
@@ -37,7 +37,9 @@ export default class HomePage extends React.Component {
         </div>}
         {user && <div className="row">
           {Object.keys(causes).map((causeId) =>
-              <CauseCard cause={causes[causeId]} causeId={causeId} key={causeId} />
+            <div className="col-md-3" key={causeId}>
+              <CauseCard cause={causes[causeId]} causeId={causeId} />
+            </div>
           )}
         </div>}
 
@@ -47,17 +49,21 @@ export default class HomePage extends React.Component {
           </div>
           <div className="row">
             {Object.keys(causes).map((causeId) =>
-                <CauseCard cause={causes[causeId]} causeId={causeId} key={causeId} />
+              <div className="col-md-3" key={causeId}>
+                <CauseCard cause={causes[causeId]} causeId={causeId} />
+              </div>
             )}
           </div>
         </section>
 
         <section className="home-page__section">
-          <div className="col-12 text-center">
-            <button className="btn btn-primary">View Petitions</button>
+          <div className="col-6 offset-3 text-center">
+            <button href="#" className="btn btn-primary btn-block">
+              View Petitions
+            </button>
           </div>
         </section>
       </div>
     </div>);
-	}
+  }
 }

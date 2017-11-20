@@ -39,8 +39,10 @@ export default class SettingsPage extends React.Component {
           <div className="col-12">
             <h3 className="cause-page__section-header">Causes You Follow</h3>
           </div>
-          {Object.keys(causes).map((causeId) => 
-            <CauseCard cause={causes[causeId]} causeId={causeId} key={causeId} />
+          {Object.keys(causes).map((causeId) =>
+            <div className="col-md-3" key={causeId}>
+              <CauseCard cause={causes[causeId]} causeId={causeId} />
+            </div>
           )}
         </section>
         <section className="row cause-page__section">
@@ -48,7 +50,9 @@ export default class SettingsPage extends React.Component {
             <h3 className="cause-page__section-header">People You Follow</h3>
           </div>
           {Object.keys(figures).map((figureId) =>
-            <PublicFigureCard publicFigure={figures[figureId]} publicFigureId={figureId} />
+            <div className="col-md-2" key={figureId}>
+              <PublicFigureCard publicFigure={figures[figureId]} publicFigureId={figureId} />
+            </div>
           )}
         </section>
       </div>
