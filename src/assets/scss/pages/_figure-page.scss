@@ -1,24 +1,39 @@
 .figure-page {
   &__image {
-    
+    border-radius: .25rem;
+    width: 100%;
   }
-
-  &__contacts {
-    
-  }
-
-  &__figure {
-    
-  }
-
-  &__supporting {
   
+  &__name {
+    font-size: 2.8rem;
+  }
+  
+  &__title {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+  }
+  
+  &__contacts {
+    background-color: $brand-color;
+    display: inline-block;
+    padding: 1rem;
+    border-radius: .25rem;
+    color: white;
   }
 
-  &__opposing {
-
+  &__website {
+    color: $white;
+    
+    &:hover {
+      color: lighten($brand-color,30%);
+    }
   }
-    &__content {
+  
+  &__cause-row {
+    margin-top: 1rem;
+  }
+ 
+  &__content {
     margin-top: -3.5rem;
   }
 

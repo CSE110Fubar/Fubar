@@ -52,39 +52,44 @@ export default class PublicFigurePage extends React.Component {
     .catch(console.error);
   }
 
-	render() {
+    render() {
     let {figure, supportedCauses, opposedCauses} = this.state;
 
     if (!figure) {
       return <div>Loading...</div>;
     }
 
-		return (<div className="figure-page">
+    return (<div className="figure-page">
       <Hero/>
       <div className="container">
         <div className="row">
-          <div className="col-md-8 figure-page__figure">
-          <img src={figure.image} className="figure-page__image" />
-            <h1>{figure.name}</h1>
-            <h2>{figure.title}</h2>
+          <div className="col-md-3">
+            <img src={figure.image} className="figure-page__image" />
+            
           </div>
-          <div className="col-md-4 figure-page__contacts">
-            Contact Information<br/>
-            {figure.phoneNo}<br/>
-            {figure.website}
+          <div className="col-md-5">
+            <h1 className="figure-page__name">{figure.name}</h1>
+            <h2 className="figure-page__title">{figure.title}</h2>
+          </div>
+          <div className="col-md-4">
+            <div className="figure-page__contacts">
+            <i class="fa fa-phone" aria-hidden="true"></i> {figure.phoneNo}<br/>
+            <i class="fa fa-globe" aria-hidden="true"></i> <a href={figure.website}
+              className="figure-page__website">{figure.website}</a>
+            </div>
           </div>
         </div>
 
-        <div className="row">
-          <div className="col-md-6 figure-page__supporting">
-            <h2>Supporting</h2>
+        <div className="row figure-page__cause-row">
+          <div className="col-md-6">
+            <h2 className="cause-page__section-header">Supporting</h2>
             {Object.keys(supportedCauses).map((causeId) => 
               <CauseCard large cause={supportedCauses[causeId]}
                 causeId={causeId} key={causeId} />
             )}
           </div>
-          <div className="col-md-6 figure-page__opposing">
-            <h2>Opposing</h2>
+          <div className="col-md-6">
+            <h2 className="cause-page__section-header">Opposing</h2>
             {Object.keys(opposedCauses).map((causeId) => 
               <CauseCard large cause={opposedCauses[causeId]} causeId={causeId}
                 key={causeId} />
@@ -93,5 +98,5 @@ export default class PublicFigurePage extends React.Component {
         </div>
       </div>
     </div>);
-	}
+    }
 }
