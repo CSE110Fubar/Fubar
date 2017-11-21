@@ -6,7 +6,7 @@ export default class PetitionCard extends React.Component {
     let {petition, petitionId} = this.props;
 
 		return (<div className="card">
-      <div className="row">
+      <div className="row card-body">
         <div className="col-sm-4">
           <img src={petition.image} className="card-img-top"/>
         </div>

@@ -16,7 +16,7 @@ export default class App extends React.Component {
 					<Route path="/causes/:causeId" component={CausePage} />
 					<Route path="/figures/:figureId" component={PublicFigurePage} />
 					<Route path="/settings/" component={SettingsPage}/>
-					<Route path="/results/" component={SearchResultPage} />
+					<Route path="/search/" component={SearchResultPage} />
 					<Route path="/petitions/" component={PetitionsPage} />
 				</Switch>
 			</Router>

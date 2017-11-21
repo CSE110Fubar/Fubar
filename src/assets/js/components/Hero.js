@@ -1,13 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import Login from '~/components/Login';
+import SearchBox from '~/components/SearchBox';
 
 export default class Hero extends React.Component {
-  onSearch = (search) => {
-    console.log(search);
-  }
-
   render() {
     let { background } = this.props;
     let heroStyle = {};
@@ -30,9 +27,7 @@ export default class Hero extends React.Component {
           </div>
 
           <div className="col-md-6 text-center">
-            <form className="form-group" onSubmit={this.onSearch}>
-              <input type="text" placeholder="Search" className="form-control" />
-            </form>
+            <SearchBox />
           </div>
           <div className={`col-md-3 text-center text-md-right ${loginClass}`}>
             <Login />
@@ -41,4 +36,4 @@ export default class Hero extends React.Component {
       </div>
     </div>);
   }
-}
+};
