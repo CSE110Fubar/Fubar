@@ -60,3 +60,17 @@ export const getEvent = (eventId) =>
  */
 export const getNews = (newsId) =>
   db.ref('/news').child(newsId);
+
+/**
+ * Get the list of supporting users for a particular cause
+ * @param {String} causeId The ID of the cause to fetch
+ */
+export const getSupportingUsers = (causeId) =>
+  db.ref('/causes').child(causeId).child('supportingUsers');
+
+/**
+ * Get the list of opposing users for a particular cause
+ * @param {String} causeId The ID of the cause to fetch
+ */
+export const getOpposingUsers = (causeId) =>
+db.ref('/causes').child(causeId).child('opposingUsers');

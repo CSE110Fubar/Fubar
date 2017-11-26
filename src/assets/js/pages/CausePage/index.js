@@ -22,13 +22,17 @@ export default class CausePage extends React.Component {
       opposingFigures: {}
     };
   }
-
+  
   componentWillMount() {
     checkAuth((user) => this.setState({user: user}));
 
+    // Load data from API here, store in state
+    this.loadCause();
+  }
+
+  loadCause = () => {
     let {params} = this.props.match;
 
-    // Load data from API here, store in state
     Api.getCause(params.causeId)
     .once('value')
     .then((snapshot) => {
@@ -86,14 +90,91 @@ export default class CausePage extends React.Component {
     .catch(console.error);
   }
 
+  /**
+   * Removes the user from both the opposing and supporting users list
+   */
+  removeStance = () => {
+    let {user} = this.state;
+    let {params} = this.props.match;
+
+    if (!user) return;
+
+    let supporting = Api.getSupportingUsers(params.causeId);
+    let opposing = Api.getOpposingUsers(params.causeId);
+
+    let remSupp = supporting
+    .once('value')
+    .then((snapshot) => {
+      let val = snapshot.val();
+      if (val === null) return;
+      Object.keys(val).forEach((uid) => {
+        if (val[uid] == user.uid) {
+          supporting.child(uid).remove();
+        }
+      })
+    });
+
+    let remOpp = opposing
+    .once('value')
+    .then((snapshot) => {
+      let val = snapshot.val();
+      if (val === null) return;
+      Object.keys(val).forEach((uid) => {
+        if (val[uid] == user.uid) {
+          opposing.child(uid).remove();
+        }
+      })
+    });
+
+    return Promise.all([remSupp, remOpp]);
+  }
+
+  /**
+   * Adds the user to the list of supporting users and refreshes
+   */
+  supportCause = () => {
+    let {user} = this.state;
+    let {params} = this.props.match;
+
+    if (!user) return;
+
+    this.removeStance()
+    .then(() => {
+      let supporting = Api.getSupportingUsers(params.causeId);
+      let newUser = supporting.push();
+      return newUser.set(user.uid);
+    })
+    .then(this.loadCause);
+  }
+
+  /**
+   * Adds the user to the list of opposing users and refreshes
+   */
+  opposeCause = () => {
+    let {user} = this.state;
+    let {params} = this.props.match;
+
+    if (!user) return;
+
+    this.removeStance()
+    .then(() => {
+      let opposing = Api.getOpposingUsers(params.causeId);
+      let newUser = opposing.push();
+      return newUser.set(user.uid);
+    })
+    .then(this.loadCause);
+  }
+
 	render() {
     let {cause, events, news,
       supportingFigures, opposingFigures, user} = this.state;
 
     let stanceProgress = 0;
     if (cause.supportingUsers && cause.opposingUsers) {
-      stanceProgress = cause.supportingUsers.length /
-        (cause.supportingUsers.length + cause.opposingUsers.length);
+      let supporting = Object.values(cause.supportingUsers).length,
+        opposing = Object.values(cause.opposingUsers).length;
+
+      stanceProgress = supporting / (supporting + opposing);
     }
 
     if (!cause.name) {
@@ -117,17 +198,21 @@ export default class CausePage extends React.Component {
             <StanceBar progress={stanceProgress} />
             <div className="row">
               <div className="col-6">
-                {cause.supportingUsers ? cause.supportingUsers.length : '0'}
+                {cause.supportingUsers ?
+                  Object.values(cause.supportingUsers).length : '0'}
                 {' '}
                 Supporters
-                {user && <button className="btn btn-success">
+                {user && <button onClick={this.supportCause}
+                  className="btn btn-success">
                   Support
                 </button>}
               </div>
               <div className="col-6">
-                {cause.opposingUsers ? cause.opposingUsers.length : '0'}{' '}
+                {cause.opposingUsers ?
+                  Object.values(cause.opposingUsers).length : '0'}{' '}
                 Opposers
-                {user && <button className="btn btn-danger">
+                {user && <button onClick={this.opposeCause}
+                  className="btn btn-danger">
                   Oppose
                 </button>}
               </div>
