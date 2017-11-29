@@ -2,6 +2,7 @@ import React from 'react';
 import firebase from 'firebase';
 import {Link} from 'react-router-dom';
 
+import * as Api from '~/data/Api';
 import FirebaseApp from '~/Firebase';
 import checkAuth from '~/data/Auth';
 
@@ -21,11 +22,33 @@ export default class Login extends React.Component {
     checkAuth((user) => this.setState({user: user}));
   };
 
+  addUserSettings = (user) => {
+    let settings = Api.getUserSetting(user.uid);
+
+    settings
+    .once('value')
+    .then((snapshot) => {
+      // Check that it doesn't already exist
+      if(snapshot.exists()) {
+        return;
+      }
+      
+      // Create a new settings object
+      settings.set({
+        admin: false,
+        facebookVisibility: true,
+        followedCauses: []
+      });
+    });
+  };
+
   login = () => {
     auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
       .then(() => auth.signInWithPopup(provider))
       .then((result) => {
         const user = result.user;
+
+        this.addUserSettings(user);
         this.setState({user});
       })
       .catch(console.error);
@@ -63,7 +86,7 @@ export default class Login extends React.Component {
     }
     return (<button onClick={this.login} type="button"
       className="btn btn-primary">
-      <span class="fa-stack">
+      <span className="fa-stack">
         <i className="fa fa-square-o fa-stack-2x fa-inverse"></i>
         <i className="fa fa-facebook fa-stack-1x fa-inverse"></i>
       </span> Login
