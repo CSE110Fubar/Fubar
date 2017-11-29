@@ -22,6 +22,12 @@ export const getPetitionsRef = () =>
   db.ref('/petitions')
 
 /**
+ * Request a list of all supporters of petition.
+ */
+export const getSupportForPetition = (petitionId) =>
+  db.ref('/petitions').child(petitionId).child('supportingUsers');
+
+/**
  * Request a list of public figures
  */
  export const getPublicFigureResults = () =>
