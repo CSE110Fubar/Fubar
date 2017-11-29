@@ -39,8 +39,8 @@ export default class PetitionsPage extends React.Component {
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
-                  <h4><span class="glyphicon glyphicon-lock"></span>Add Petition</h4>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4><span className="glyphicon glyphicon-lock"></span>Add Petition</h4>
+                  <button type="button" className="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div className="modal-body">
                   <form>
