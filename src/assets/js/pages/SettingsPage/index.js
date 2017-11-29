@@ -28,8 +28,7 @@ export default class SettingsPage extends React.Component {
   }
 
   render() {
-    let { causes } = this.state;
-    let { figures } = this.state;
+    let {causes, figures} = this.state;
 
     return (<div className="settings-page">
       <Hero />

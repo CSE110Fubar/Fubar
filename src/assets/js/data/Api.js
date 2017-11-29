@@ -73,4 +73,11 @@ export const getSupportingUsers = (causeId) =>
  * @param {String} causeId The ID of the cause to fetch
  */
 export const getOpposingUsers = (causeId) =>
-db.ref('/causes').child(causeId).child('opposingUsers');
+  db.ref('/causes').child(causeId).child('opposingUsers');
+
+/**
+ * Get the user settings object associated with a particular user
+ * @param {String} userId The ID of the user to fetch
+ */
+export const getUserSetting = (userId) =>
+  db.ref('/userSettings').child(userId);
