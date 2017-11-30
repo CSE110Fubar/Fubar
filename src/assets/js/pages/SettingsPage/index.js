@@ -19,13 +19,14 @@ export default class SettingsPage extends React.Component {
       user: {},
       causes: {},
       figures: {},
-      settings: {}
+      settings: {},
+      supportingCauses: {}
     };
   }
 
   componentWillMount() {
     checkAuth((user) => {
-      this.setState({user: user});
+      this.setState({ user: user });
       if (user) {
         this.loadData();
       }
@@ -39,12 +40,25 @@ export default class SettingsPage extends React.Component {
       .once('value')
       .then((snapshot) => this.setState({ settings: snapshot.val() }));
 
-    // Load data from API here, store in state
-    Api.getCausesRef()
+    // Filter causes for ones that the user supports.
+    db.ref('causes')
       .once('value')
-      .then((snapshot) => this.setState({ causes: snapshot.val() }));
-
-  };
+      .then(snapshot => {
+        let causes = snapshot.val();
+        var supportingCauses = []
+        Object.keys(causes).forEach(causeId => {
+          let cause = causes[causeId];
+          let supportingUsers = cause['supportingUsers'];
+          Object.keys(supportingUsers).forEach(key => {
+            let supporterId = supportingUsers[key];
+            if (supporterId === userId) {
+              supportingCauses.push(cause);
+            }
+          });
+        });
+        this.setState({supportingCauses: supportingCauses})
+      });
+  }
 
   toggleFbVisibility = () => {
     let settings = this.state.settings;
@@ -52,12 +66,12 @@ export default class SettingsPage extends React.Component {
 
     settings.fbVisibility = !settings.fbVisibility;
     db.ref('userSettings/' + userId).set(settings);
-    this.setState({settings: settings})
-  };
+    this.setState({ settings: settings });
+  }
 
 
   render() {
-    let {user, causes, figures, settings} = this.state;
+    let {user, causes, figures, settings, supportingCauses} = this.state;
     let fbVisibility = settings.fbVisibility;
     let fbVisibilityButton = null;
 
@@ -84,9 +98,9 @@ export default class SettingsPage extends React.Component {
           <div className="col-12">
             <h3 className="cause-page__section-header">Causes You Follow</h3>
           </div>
-          {Object.keys(causes).map((causeId) =>
+          {Object.keys(supportingCauses).map((causeId) =>
             <div className="col-md-3" key={causeId}>
-              <CauseCard cause={causes[causeId]} causeId={causeId} />
+              <CauseCard cause={supportingCauses[causeId]} causeId={causeId} />
             </div>
           )}
         </section>
