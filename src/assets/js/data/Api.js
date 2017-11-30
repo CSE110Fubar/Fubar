@@ -34,6 +34,13 @@ export const getEventsRef = () =>
     db.ref('/events')
 
 /**
+ * Request a list of all causes.
+ * @param {String} userId The ID of the user who's settings to fetch
+ */
+export const getUserSettings = (userId) =>
+db.ref('/userSettings/' + userId)
+
+/**
  * Request information about a given Cause.
  * @param {String} causeId The ID of the cause to fetch
  */
@@ -66,11 +73,11 @@ export const getNews = (newsId) =>
  * @param {String} causeId The ID of the cause to fetch
  */
 export const getSupportingUsers = (causeId) =>
-  db.ref('/causes').child(causeId).child('supportingUsers');
+db.ref('/causes').child(causeId).child('supportingUsers');
 
 /**
- * Get the list of opposing users for a particular cause
- * @param {String} causeId The ID of the cause to fetch
- */
+* Get the list of opposing users for a particular cause
+* @param {String} causeId The ID of the cause to fetch
+*/
 export const getOpposingUsers = (causeId) =>
 db.ref('/causes').child(causeId).child('opposingUsers');
