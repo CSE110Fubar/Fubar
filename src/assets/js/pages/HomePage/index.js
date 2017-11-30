@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 import * as Api from '~/data/Api';
 import Hero from '~/components/Hero';
@@ -58,9 +59,9 @@ export default class HomePage extends React.Component {
 
         <section className="home-page__section">
           <div className="col-6 offset-3 text-center">
-            <button href="#" className="btn btn-primary btn-block">
+            <Link to="/petitions" className="btn btn-primary btn-block">
               View Petitions
-            </button>
+            </Link>
           </div>
         </section>
       </div>

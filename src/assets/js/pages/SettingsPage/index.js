@@ -26,10 +26,7 @@ export default class SettingsPage extends React.Component {
   componentWillMount() {
     checkAuth((user) => {
       this.setState({user: user});
-      console.log('user', this.state.user);
       if (user) {
-        console.log('componentwillmount', user);
-        console.log('componentwillmount', this.state.user);
         this.loadData();
       }
     });
@@ -56,8 +53,6 @@ export default class SettingsPage extends React.Component {
     settings.fbVisibility = !settings.fbVisibility;
     db.ref('userSettings/' + userId).set(settings);
     this.setState({settings: settings})
-    console.log(settings.fbVisibility);
-    console.log(this.state.settings);
   };
 
 
@@ -66,7 +61,6 @@ export default class SettingsPage extends React.Component {
     let fbVisibility = settings.fbVisibility;
     let fbVisibilityButton = null;
 
-    console.log('rendered', fbVisibility);
     if (fbVisibility) {
       fbVisibilityButton = <FontAwesome
         name='eye' onClick={this.toggleFbVisibility} />

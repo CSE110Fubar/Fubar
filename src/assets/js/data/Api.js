@@ -22,6 +22,12 @@ export const getPetitionsRef = () =>
   db.ref('/petitions')
 
 /**
+ * Request a list of all supporters of petition.
+ */
+export const getSupportForPetition = (petitionId) =>
+  db.ref('/petitions').child(petitionId).child('supportingUsers');
+
+/**
  * Request a list of public figures
  */
  export const getPublicFigureResults = () =>
@@ -80,4 +86,11 @@ db.ref('/causes').child(causeId).child('supportingUsers');
 * @param {String} causeId The ID of the cause to fetch
 */
 export const getOpposingUsers = (causeId) =>
-db.ref('/causes').child(causeId).child('opposingUsers');
+  db.ref('/causes').child(causeId).child('opposingUsers');
+
+/**
+ * Get the user settings object associated with a particular user
+ * @param {String} userId The ID of the user to fetch
+ */
+export const getUserSetting = (userId) =>
+  db.ref('/userSettings').child(userId);

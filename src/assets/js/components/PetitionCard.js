@@ -17,7 +17,7 @@ export default class PetitionCard extends React.Component {
           <p>{petition.description}</p>
         </div>
         <div className="col-sm-2">
-          <p>{petition.supportingUsers.length} Supporting</p>
+          <p>{Object.keys(petition.supportingUsers).length} Supporting</p>
           <button type="button" className="btn btn-info">
             Add Support
           </button>
