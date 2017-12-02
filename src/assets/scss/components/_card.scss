@@ -55,6 +55,14 @@ $card-color: rgba(0,0,0,0.2);
     color: $brand-color;
   }
 
+  &__follow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.3rem 0.6rem;
+    margin: 0.5rem 0.5rem 0 0;
+  }
+
   &__description {
     color: #000;
   }
