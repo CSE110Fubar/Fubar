@@ -40,24 +40,8 @@ export default class SettingsPage extends React.Component {
       .once('value')
       .then((snapshot) => this.setState({ settings: snapshot.val() }));
 
-    // Filter causes for ones that the user supports.
-    db.ref('causes')
-      .once('value')
-      .then(snapshot => {
-        let causes = snapshot.val();
-        var supportingCauses = []
-        Object.keys(causes).forEach(causeId => {
-          let cause = causes[causeId];
-          let supportingUsers = cause['supportingUsers'];
-          Object.keys(supportingUsers).forEach(key => {
-            let supporterId = supportingUsers[key];
-            if (supporterId === userId) {
-              supportingCauses.push(cause);
-            }
-          });
-        });
-        this.setState({supportingCauses: supportingCauses})
-      });
+    Api.getUserSupportingCauses(userId)
+      .then((supportingCauses) => this.setState({supportingCauses}));
   }
 
   toggleFbVisibility = () => {

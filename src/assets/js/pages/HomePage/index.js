@@ -13,22 +13,30 @@ export default class HomePage extends React.Component {
     // Placeholder state
     this.state = {
       causes: {},
-      user: {}
+      user: {},
+      supportingCauses: {}
     };
   }
 
   componentWillMount() {
-    checkAuth((user) => this.setState({user: user}));
+    checkAuth((user) => {
+      this.setState({user: user})
+      if(user) this.loadMyCauses(user.uid);
+    });
 
     // Load data from API here, store in state
-    let causes = Api.getCausesRef();
-    causes.once('value').then((snapshot) =>
-      this.setState({causes: snapshot.val()})
-    );
+    Api.getCausesRef()
+    .once('value')
+    .then((snapshot) => this.setState({causes: snapshot.val()}));
+  }
+
+  loadMyCauses = (userId) => {
+    Api.getUserSupportingCauses(userId)
+    .then((supportingCauses) => this.setState({supportingCauses}));
   }
 
   render() {
-    let {causes, user} = this.state;
+    let {causes, user, supportingCauses} = this.state;
 
     return (<div className="home-page">
       <Hero />
@@ -36,10 +44,10 @@ export default class HomePage extends React.Component {
         {user && <div className="column">
           <h3>My Causes</h3>
         </div>}
-        {user && <div className="row">
-          {Object.keys(causes).map((causeId) =>
+        {user && supportingCauses && <div className="row">
+          {Object.keys(supportingCauses).map((causeId) =>
             <div className="col-md-3" key={causeId}>
-              <CauseCard cause={causes[causeId]} causeId={causeId} />
+              <CauseCard cause={supportingCauses[causeId]} causeId={causeId} />
             </div>
           )}
         </div>}
@@ -49,7 +57,12 @@ export default class HomePage extends React.Component {
             <h3>Up and Coming Causes</h3>
           </div>
           <div className="row">
-            {Object.keys(causes).map((causeId) =>
+            {Object.keys(causes)
+            .filter((causeId) => {
+              if (!Object.keys(supportingCauses)) return true;
+              return Object.keys(supportingCauses).indexOf(causeId) === -1;
+            })
+            .map((causeId) =>
               <div className="col-md-3" key={causeId}>
                 <CauseCard cause={causes[causeId]} causeId={causeId} />
               </div>

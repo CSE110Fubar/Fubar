@@ -2,6 +2,7 @@ import Cookies from 'universal-cookie';
 import nocache from 'superagent-no-cache';
 import pref from 'superagent-prefix';
 import request from 'superagent';
+import Q from 'q';
 
 import Firebase from '~/Firebase';
 
@@ -94,3 +95,22 @@ export const getOpposingUsers = (causeId) =>
  */
 export const getUserSetting = (userId) =>
   db.ref('/userSettings').child(userId);
+
+/**
+ * Get the causes that a given user supports
+ * @param {String} userId The ID of the user
+ */
+export const getUserSupportingCauses = (userId) =>
+  db.ref('causes')
+  .once('value')
+  .then(snapshot => {
+    let causes = snapshot.val();
+    return Object.keys(causes)
+    .reduce((obj, curr) => {
+      if(Object.values(causes[curr]['supportingUsers']).indexOf(userId) 
+        === -1) {
+        return obj;
+      }
+      return {...obj, [curr]: causes[curr]};
+    }, {});
+  });
