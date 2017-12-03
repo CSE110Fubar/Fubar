@@ -70,7 +70,7 @@ export default class PetitionsPage extends React.Component {
           <div className="col-sm-10">
             <h1 className="petition-page__header">Active Petitions</h1>
           </div>
-          <button type="button" data-toggle="modal" data-target="#petition_form" className="btn btn-info">
+          <button type="button" data-toggle="modal" data-target="#petition_form" className="btn btn-primary">
               Add Petition
           </button>
           <div className="modal fade" id="petition_form">
