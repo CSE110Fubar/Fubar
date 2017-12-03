@@ -42,7 +42,7 @@ export default class HomePage extends React.Component {
       <Hero />
       <div className="container">
         {user && <div className="column">
-          <h3>My Causes</h3>
+          <h3>Causes You Follow</h3>
         </div>}
         {user && supportingCauses && <div className="row">
           {Object.keys(supportingCauses).map((causeId) =>

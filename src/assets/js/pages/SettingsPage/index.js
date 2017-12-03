@@ -44,11 +44,11 @@ export default class SettingsPage extends React.Component {
       .then((supportingCauses) => this.setState({supportingCauses}));
   }
 
-  toggleFbVisibility = () => {
+  toggleFacebookVisibility = () => {
     let settings = this.state.settings;
     let userId = this.state.user.uid;
 
-    settings.fbVisibility = !settings.fbVisibility;
+    settings.facebookVisibility = !settings.facebookVisibility;
     db.ref('userSettings/' + userId).set(settings);
     this.setState({ settings: settings });
   }
@@ -56,15 +56,15 @@ export default class SettingsPage extends React.Component {
 
   render() {
     let {user, causes, figures, settings, supportingCauses} = this.state;
-    let fbVisibility = settings.fbVisibility;
-    let fbVisibilityButton = null;
+    let facebookVisibility = settings.facebookVisibility;
+    let facebookVisibilityButton = null;
 
-    if (fbVisibility) {
-      fbVisibilityButton = <FontAwesome
-        name='eye' onClick={this.toggleFbVisibility} />
+    if (facebookVisibility) {
+      facebookVisibilityButton = <FontAwesome
+        name='eye' onClick={this.toggleFacebookVisibility} />
     } else {
-      fbVisibilityButton = <FontAwesome
-        name='circle-o' onClick={this.toggleFbVisibility} />
+      facebookVisibilityButton = <FontAwesome
+        name='circle-o' onClick={this.toggleFacebookVisibility} />
     }
     return (<div className="settings-page">
       <Hero />
@@ -75,7 +75,7 @@ export default class SettingsPage extends React.Component {
             <h3 className="cause-page__section-header">Facebook Visibility</h3>
           </div>
           <div className="col-9">
-            {fbVisibilityButton}
+            {facebookVisibilityButton}
           </div>
         </section>
         <section className="row cause-page__section">
