@@ -1,4 +1,5 @@
 import React from 'react';
+import FontAwesome from 'react-fontawesome';
 
 import checkAuth from '~/data/Auth';
 import * as Api from '~/data/Api';
@@ -19,15 +20,41 @@ export default class CausePage extends React.Component {
       news: {},
       events: {},
       supportingFigures: {},
-      opposingFigures: {}
+      opposingFigures: {},
+      following: false
     };
   }
   
   componentWillMount() {
-    checkAuth((user) => this.setState({user: user}));
+    checkAuth((user) => {
+      this.setState({user: user})
+      this.updateUserFollowing();
+    });
 
     // Load data from API here, store in state
     this.loadCause();
+  }
+
+  followCause = () => {
+    return Api.userFollowCause(this.state.user.uid,
+      this.props.match.params.causeId)
+    .then(this.loadCause);
+  }
+
+  unfollowCause = () => {
+    return Api.userUnfollowCause(this.state.user.uid,
+      this.props.match.params.causeId)
+    .then(this.loadCause);
+  };
+
+  updateUserFollowing = () => {
+    let {user} = this.state;
+    let {causeId} = this.props.match.params;
+
+    if(!user) return;
+
+    Api.getUserFollowing(user.uid, causeId)
+    .then(following => this.setState({following}));
   }
 
   loadCause = () => {
@@ -86,6 +113,8 @@ export default class CausePage extends React.Component {
             });
           })
       );
+
+      this.updateUserFollowing();
     })
     .catch(console.error);
   }
@@ -144,7 +173,7 @@ export default class CausePage extends React.Component {
       let newUser = supporting.push();
       return newUser.set(user.uid);
     })
-    .then(this.loadCause);
+    .then(this.followCause);
   }
 
   /**
@@ -162,12 +191,12 @@ export default class CausePage extends React.Component {
       let newUser = opposing.push();
       return newUser.set(user.uid);
     })
-    .then(this.loadCause);
+    .then(this.followCause);
   }
 
 	render() {
     let {cause, events, news,
-      supportingFigures, opposingFigures, user} = this.state;
+      supportingFigures, opposingFigures, user, following} = this.state;
 
     let stanceProgress = 0;
     if (cause.supportingUsers && cause.opposingUsers) {
@@ -188,7 +217,14 @@ export default class CausePage extends React.Component {
           <div className="col-12">
             <h1 className="cause-page__header">
               {cause.name}{' '}
-              <button href="#" className="btn btn-primary">Follow</button>
+              {following && <button href="#" onClick={this.unfollowCause}
+                className="btn btn-danger">
+                <FontAwesome name="eye-slash" /> Unfollow
+              </button>}
+              {!following && <button href="#" onClick={this.followCause}
+                className="btn btn-primary">
+                <FontAwesome name="eye" /> Follow
+              </button>}
             </h1>
           </div>
           <div className="col-8">

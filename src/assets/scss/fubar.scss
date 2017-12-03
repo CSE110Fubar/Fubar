@@ -35,6 +35,24 @@ a {
   }
 }
 
+.btn-outline-primary {
+  border-color: $brand-color;
+  color: $brand-color;
+
+  &:hover, &:focus, &:not([disabled]):not(.disabled):active  {
+    background-color: $brand-color;
+    border-color: $brand-color;
+  }
+
+  &:not([disabled]):not(.disabled):active {
+    box-shadow: 0 0 0 0.2rem transparentize($brand-color, 0.5);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem transparentize($brand-color, 0.5);
+  }
+}
+
 .settings-button {
   background-color: $brand-color;
   color: $white;

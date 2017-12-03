@@ -14,14 +14,18 @@ export default class HomePage extends React.Component {
     this.state = {
       causes: {},
       user: {},
-      supportingCauses: {}
+      supportingCauses: {},
+      followedCauses: []
     };
   }
 
   componentWillMount() {
     checkAuth((user) => {
       this.setState({user: user})
-      if(user) this.loadMyCauses(user.uid);
+      if(user) {
+        this.loadMyCauses(user.uid);
+        this.loadFollowedCauses();
+      }
     });
 
     // Load data from API here, store in state
@@ -30,13 +34,38 @@ export default class HomePage extends React.Component {
     .then((snapshot) => this.setState({causes: snapshot.val()}));
   }
 
+  followCause = (causeId) => {
+    return Api.userFollowCause(this.state.user.uid, causeId)
+    .then(this.loadFollowedCauses);
+  }
+
+  unfollowCause = (causeId) => {
+    return Api.userUnfollowCause(this.state.user.uid, causeId)
+    .then(this.loadFollowedCauses);
+  };
+
   loadMyCauses = (userId) => {
     Api.getUserSupportingCauses(userId)
     .then((supportingCauses) => this.setState({supportingCauses}));
   }
 
+  loadFollowedCauses = () => {
+    let {user} = this.state;
+
+    return Api.getUserSettings(user.uid)
+    .once('value')
+    .then(snapshot => snapshot.val())
+    .then(settings => {
+      if(!settings) return;
+      if(!settings.followedCauses) {
+        return this.setState({followedCauses: []});
+      }
+      return this.setState({followedCauses: Object.values(settings.followedCauses)});
+    })
+  }
+
   render() {
-    let {causes, user, supportingCauses} = this.state;
+    let {causes, user, supportingCauses, followedCauses} = this.state;
 
     return (<div className="home-page">
       <Hero />
@@ -47,7 +76,10 @@ export default class HomePage extends React.Component {
         {user && supportingCauses && <div className="row">
           {Object.keys(supportingCauses).map((causeId) =>
             <div className="col-md-3" key={causeId}>
-              <CauseCard cause={supportingCauses[causeId]} causeId={causeId} />
+              <CauseCard cause={supportingCauses[causeId]} causeId={causeId}
+                  showFollow={!!user} follow={() => this.followCause(causeId)}
+                  unfollow = {() => this.unfollowCause(causeId)}
+                  following={followedCauses.indexOf(causeId) !== -1} />
             </div>
           )}
         </div>}
@@ -64,7 +96,10 @@ export default class HomePage extends React.Component {
             })
             .map((causeId) =>
               <div className="col-md-3" key={causeId}>
-                <CauseCard cause={causes[causeId]} causeId={causeId} />
+                <CauseCard cause={causes[causeId]} causeId={causeId}
+                  showFollow={!!user} follow={() => this.followCause(causeId)}
+                  unfollow = {() => this.unfollowCause(causeId)}
+                  following={followedCauses.indexOf(causeId) !== -1} />
               </div>
             )}
           </div>

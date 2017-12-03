@@ -13,10 +13,11 @@ export default class PetitionCard extends React.Component {
 	render() {
     let {petition, petitionId} = this.props;
 
-		return (<div className="card">
+		return (<div className="card petition-card">
       <div className="row card-body">
         <div className="col-sm-4">
-          <img src={petition.image} className="card-img-top"/>
+          <img src={petition.image}
+            className="petition-card__img"/>
         </div>
         <div className="col-sm-5">
           <h3 className="card-text card__header">

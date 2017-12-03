@@ -26,7 +26,7 @@ export default class SettingsPage extends React.Component {
 
   componentWillMount() {
     checkAuth((user) => {
-      this.setState({ user: user });
+      this.setState({user: user});
       if (user) {
         this.loadData();
       }
@@ -38,7 +38,7 @@ export default class SettingsPage extends React.Component {
 
     Api.getUserSettings(userId)
       .once('value')
-      .then((snapshot) => this.setState({ settings: snapshot.val() }));
+      .then((snapshot) => this.setState({settings: snapshot.val()}));
 
     Api.getUserSupportingCauses(userId)
       .then((supportingCauses) => this.setState({supportingCauses}));
@@ -50,7 +50,7 @@ export default class SettingsPage extends React.Component {
 
     settings.facebookVisibility = !settings.facebookVisibility;
     db.ref('userSettings/' + userId).set(settings);
-    this.setState({ settings: settings });
+    this.setState({settings: settings});
   }
 
 
