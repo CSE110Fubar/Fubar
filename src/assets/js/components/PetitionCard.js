@@ -5,10 +5,11 @@ export default class PetitionCard extends React.Component {
 	render() {
     let {petition, petitionId} = this.props;
 
-		return (<div className="card">
+		return (<div className="card petition-card">
       <div className="row card-body">
         <div className="col-sm-4">
-          <img src={petition.image} className="card-img-top"/>
+          <img src={petition.image}
+            className="petition-card__img"/>
         </div>
         <div className="col-sm-5">
           <h3 className="card-text card__header">
@@ -18,7 +19,7 @@ export default class PetitionCard extends React.Component {
         </div>
         <div className="col-sm-2">
           <p>{Object.keys(petition.supportingUsers).length} Supporting</p>
-          <button type="button" className="btn btn-info">
+          <button type="button" className="btn btn-primary">
             Add Support
           </button>
         </div>
