@@ -67,4 +67,9 @@ a {
     background-color: darken($brand-color, 5%);
     color: $white;
   }
+
+  &--transparent {
+    background-color: transparent;
+    color: $white;
+  }
 }

@@ -64,13 +64,16 @@ export default class Login extends React.Component {
 
   render() {
     let {user} = this.state;
+    let {transparent} = this.props;
+
+    let buttonTransparent = transparent ? 'settings-button--transparent' : '';
 
     if (user) {
       return (<div>
         <div className="dropdown d-inline">
-          <button className="btn settings-button" type="button"
-            id="settingsDropdown" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
+          <button className={`btn settings-button ${buttonTransparent}`}
+            type="button" id="settingsDropdown" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             {user.displayName} <i className="fa fa-angle-down"></i>
           </button>
           <div className="dropdown-menu" aria-labelledby="settingsDropdown">

@@ -62,14 +62,10 @@ export default class SearchResultPage extends React.Component {
           )}
         </div>
         <h2 className="results-page__section-header">Petitions</h2>
-        <div className="row">
-          {Object.keys(petitions).map((petitionId) => 
-            <div className="col" key={petitionId}>
-              <PetitionCard petition={petitions[petitionId]}
-                petitionId={petitionId} />
-            </div>
-          )}
-        </div>
+        {Object.keys(petitions).map((petitionId) => 
+          <PetitionCard petition={petitions[petitionId]}
+            petitionId={petitionId} key={petitionId} />
+        )}
       </div>
     </div>);
 	}

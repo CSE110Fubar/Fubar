@@ -2,9 +2,10 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 import * as Api from '~/data/Api';
-import Hero from '~/components/Hero';
 import CauseCard from '~/components/CauseCard';
 import checkAuth from '~/data/Auth';
+
+import Featurette from './components/Featurette';
 
 export default class HomePage extends React.Component {
   constructor(props) {
@@ -68,7 +69,7 @@ export default class HomePage extends React.Component {
     let {causes, user, supportingCauses, followedCauses} = this.state;
 
     return (<div className="home-page">
-      <Hero />
+      <Featurette />
       <div className="container">
         {user && <div className="column">
           <h3>Causes You Follow</h3>
