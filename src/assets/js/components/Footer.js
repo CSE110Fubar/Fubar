@@ -16,7 +16,7 @@ export default class Footer extends React.Component {
                 <Link to="/" className="footer__link">Home</Link>
                   </div>
                   <div className="col-md-6 text-center">
-                    Fubar
+                    <img src="/img/face.png" className="hero__logo" />
                   </div>
                   <div className="col-md-3 text-center text-md-right">
                     <Link to="/about" className="footer__link">About</Link>

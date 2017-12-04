@@ -6,6 +6,7 @@ import CauseCard from '~/components/CauseCard';
 import checkAuth from '~/data/Auth';
 
 import Featurette from './components/Featurette';
+import Footer from '~/components/Footer';
 
 export default class HomePage extends React.Component {
   constructor(props) {
@@ -116,6 +117,7 @@ export default class HomePage extends React.Component {
           </div>
         </section>
       </div>
+      <Footer/>
     </div>);
   }
 }

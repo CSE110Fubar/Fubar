@@ -2,6 +2,7 @@ import React from 'react';
 
 import * as Api from '~/data/Api';
 import Hero from '~/components/Hero';
+import Footer from '~/components/Footer';
 import CauseCard from '~/components/CauseCard';
 import PublicFigureCard from '~/components/PublicFigureCard';
 import PetitionCard from '~/components/PetitionCard';
@@ -67,6 +68,7 @@ export default class SearchResultPage extends React.Component {
             petitionId={petitionId} key={petitionId} />
         )}
       </div>
+      <Footer/>
     </div>);
 	}
 }
