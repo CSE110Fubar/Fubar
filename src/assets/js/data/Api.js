@@ -62,6 +62,13 @@ export const getPublicFigure = (figureId) =>
   db.ref('/publicFigures').child(figureId);
 
 /**
+ * Request information about a given petition.
+ * @param {String} figureId The ID of the figure to fetch
+ */
+export const getPetition = (petitionId) =>
+db.ref('/petitions').child(petitionId);
+
+/**
  * Request information about a given Event.
  * @param {String} eventId The ID of the event to fetch
  */
@@ -162,3 +169,35 @@ export const getUserFollowing = (userId, causeId) =>
   .then(snapshot => snapshot.val())
   .then(settings => settings.followedCauses && 
     Object.values(settings.followedCauses).indexOf(causeId) !== -1)
+
+/**
+ * Get the causes that match a search query
+ * @param {String} query The ID of the user
+ */
+export const getCausesSearchResults = (query) =>
+db.ref('/causes')
+.orderByChild('name')
+.startAt(query)
+.endAt(query + '\uf8ff')
+
+/**
+ * Get the public figures that match a search query
+ * @param {String} query The ID of the user
+ */
+export const getPublicFiguresSearchResults = (query) =>
+db.ref('/publicFigures')
+.orderByChild('name')
+.startAt(query)
+.endAt(query + '\uf8ff')
+
+/**
+ * Get the petitions that match a search query
+ * @param {String} query The ID of the user
+ */
+export const getPetitionsSearchResults = (query) =>
+db.ref('/petitions')
+.orderByChild('name')
+.startAt(query)
+.endAt(query + '\uf8ff')
+
+  

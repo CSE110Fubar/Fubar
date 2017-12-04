@@ -20,27 +20,43 @@ export default class SearchResultPage extends React.Component {
   }
 
   componentWillMount() {
-
-    let causes = Api.getCausesRef();
-    causes.once('value').then((snapshot) =>
-      this.setState({causes: snapshot.val()})
-    );
+    let {params} = this.props.match;
+    let {causes, publicFigures, petitions} = this.state;
+    var res = {};
+    let causeSearchResults = Api.getCausesSearchResults(params.query).on("child_added", function(snapshot) {    
+                          
+      console.log(snapshot.key);
+      let cause = Api.getCause(snapshot.key).once('value').then(function(data) {
+        res[snapshot.key] = data.val();
+      });
+    });   
+    this.setState({causes : res});
 
     // Load data from API here, store in state
-    let publicFigures = Api.getPublicFigureResults();
-    publicFigures.once('value').then((snapshot) =>
-      this.setState({publicFigures: snapshot.val()})
-    );
+    let figureSearchResults = Api.getPublicFiguresSearchResults(params.query).on("child_added", function(snapshot) {                        
+      console.log(snapshot.key);
+      let figure = Api.getPublicFigure(snapshot.key).once('value').then(function(data) {
+        publicFigures[snapshot.key] = data.val();
+      });
+    });   
+    this.setState({publicFigures});
 
-    let petitions = Api.getPetitionsRef();
-    petitions.once('value').then((snapshot) =>
-      this.setState({petitions: snapshot.val()})
-    );
+    let petitionSearchResults = Api.getPetitionsSearchResults(params.query).on("child_added", function(snapshot) {                        
+      console.log(snapshot.key);
+      let petition = Api.getPetition(snapshot.key).once('value').then(function(data) {
+        petitions[snapshot.key] = data.val();
+        console.log(petitions[snapshot.key])
+      });
+    });   
+    this.setState({petitions});
+  }
+
+  componentWillReceiveProps(newProps) {
   }
 
 	render() {
     let {causes, publicFigures, petitions} = this.state;
-
+  
 		return (<div className="results-page">
       <Hero />
       <div className="container">
@@ -61,10 +77,10 @@ export default class SearchResultPage extends React.Component {
                 publicFigureId={publicFigureId} />
             </div>
           )}
-        </div>
+          </div>
         <h2 className="results-page__section-header">Petitions</h2>
-        {Object.keys(petitions).map((petitionId) => 
-          <PetitionCard petition={petitions[petitionId]}
+          {Object.keys(petitions).map((petitionId) => 
+            <PetitionCard petition={petitions[petitionId]}
             petitionId={petitionId} key={petitionId} />
         )}
       </div>
