@@ -22,19 +22,15 @@ export default class SearchResultPage extends React.Component {
   componentWillMount() {
     let {params} = this.props.match;
     let {causes, publicFigures, petitions} = this.state;
-    var res = {};
-    let causeSearchResults = Api.getCausesSearchResults(params.query).on("child_added", function(snapshot) {    
-                          
-      console.log(snapshot.key);
+    let causeSearchResults = Api.getCausesSearchResults(params.query).on("child_added", function(snapshot) {                  
       let cause = Api.getCause(snapshot.key).once('value').then(function(data) {
-        res[snapshot.key] = data.val();
+        causes[snapshot.key] = data.val();
       });
     });   
-    this.setState({causes : res});
+    this.setState({causes});
 
     // Load data from API here, store in state
     let figureSearchResults = Api.getPublicFiguresSearchResults(params.query).on("child_added", function(snapshot) {                        
-      console.log(snapshot.key);
       let figure = Api.getPublicFigure(snapshot.key).once('value').then(function(data) {
         publicFigures[snapshot.key] = data.val();
       });
@@ -42,10 +38,8 @@ export default class SearchResultPage extends React.Component {
     this.setState({publicFigures});
 
     let petitionSearchResults = Api.getPetitionsSearchResults(params.query).on("child_added", function(snapshot) {                        
-      console.log(snapshot.key);
       let petition = Api.getPetition(snapshot.key).once('value').then(function(data) {
         petitions[snapshot.key] = data.val();
-        console.log(petitions[snapshot.key])
       });
     });   
     this.setState({petitions});
