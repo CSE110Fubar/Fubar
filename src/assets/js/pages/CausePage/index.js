@@ -4,6 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import checkAuth from '~/data/Auth';
 import * as Api from '~/data/Api';
 import Hero from '~/components/Hero';
+import Footer from '~/components/Footer';
 import PublicFigureCard from '~/components/PublicFigureCard';
 import EventCard from './components/EventCard';
 import NewsCard from './components/NewsCard';
@@ -279,7 +280,7 @@ export default class CausePage extends React.Component {
             </h3>
           </div>
           {!events && <div className="col-12">No Events</div>}
-          {Object.keys(events).map((eventId) => 
+          {Object.keys(events).map((eventId) =>
             <div className="col-md-4" key={eventId}>
               <EventCard event={events[eventId]} eventId={eventId} />
             </div>
@@ -317,6 +318,7 @@ export default class CausePage extends React.Component {
           </div>
         </section>
       </div>
+      <Footer/>
     </div>);
 	}
 }
