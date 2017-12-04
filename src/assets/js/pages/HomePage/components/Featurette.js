@@ -12,7 +12,7 @@ export default class Featurette extends React.Component {
             <h2 className="d-block text-center">Just Cause</h2>
             <p className="d-block text-center">Ayyyy it's LMAO fam</p>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-6 text-center">
             <img className="featurette__frog img-fluid" src="/img/frog_shadow.png" />
           </div>
         </div>

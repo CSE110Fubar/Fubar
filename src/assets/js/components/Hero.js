@@ -20,7 +20,7 @@ export default class Hero extends React.Component {
     }
 
     if (white) {
-      heroClass += "hero--white";
+      heroClass += " hero--white";
       headerClass += " hero__header--expanded";
       loginClass += " hero__login--trasparent";
     }
