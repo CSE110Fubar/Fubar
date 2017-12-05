@@ -12,8 +12,7 @@ export default class CauseCard extends React.Component {
         <img src={cause.image} className="card-img-top" />
         {showFollow && <button className="btn btn-primary card__follow" href="#"
           onClick={following ? unfollow : follow}>
-          {following && <FontAwesome name="eye-slash" />}
-          {!following && <FontAwesome name="eye" />}
+           <FontAwesome name={following ? "eye-slash" : 'eye'} />
         </button>}
         <div className="card-block">
           <Link to={`/causes/${causeId}`} className="card-text card__header">

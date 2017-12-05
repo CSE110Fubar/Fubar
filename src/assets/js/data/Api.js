@@ -31,21 +31,21 @@ export const getSupportForPetition = (petitionId) =>
 /**
  * Request a list of public figures
  */
- export const getPublicFigureResults = () =>
+export const getPublicFigureResults = () =>
   db.ref('/publicFigures')
 
 /**
  * Request a list of events
  */
 export const getEventsRef = () =>
-    db.ref('/events')
+  db.ref('/events')
 
 /**
  * Request a list of all causes.
  * @param {String} userId The ID of the user who's settings to fetch
  */
 export const getUserSettings = (userId) =>
-db.ref('/userSettings/' + userId)
+  db.ref('/userSettings/' + userId)
 
 /**
  * Request information about a given Cause.
@@ -80,7 +80,7 @@ export const getNews = (newsId) =>
  * @param {String} causeId The ID of the cause to fetch
  */
 export const getSupportingUsers = (causeId) =>
-db.ref('/causes').child(causeId).child('supportingUsers');
+  db.ref('/causes').child(causeId).child('supportingUsers');
 
 /**
 * Get the list of opposing users for a particular cause
@@ -102,18 +102,18 @@ export const getUserSetting = (userId) =>
  */
 export const getUserSupportingCauses = (userId) =>
   db.ref('causes')
-  .once('value')
-  .then(snapshot => {
-    let causes = snapshot.val();
-    return Object.keys(causes)
-    .reduce((obj, curr) => {
-      if(Object.values(causes[curr]['supportingUsers']).indexOf(userId) 
-        === -1) {
-        return obj;
-      }
-      return {...obj, [curr]: causes[curr]};
-    }, {});
-  });
+    .once('value')
+    .then(snapshot => {
+      let causes = snapshot.val();
+      return Object.keys(causes)
+        .reduce((obj, curr) => {
+          if (Object.values(causes[curr]['supportingUsers']).indexOf(userId)
+            === -1) {
+            return obj;
+          }
+          return { ...obj, [curr]: causes[curr] };
+        }, {});
+    });
 
 /**
  * Adds a cause to the list of causes that the user is following.
@@ -123,32 +123,33 @@ export const getUserSupportingCauses = (userId) =>
 export const userFollowCause = (userId, causeId) => {
   let settings = getUserSettings(userId);
   return settings
-  .once('value')
-  .then(snapshot => {
-    let followed = snapshot.val().followedCauses;
+    .once('value')
+    .then(snapshot => {
+      let followedCauses = snapshot.val().followedCauses;
 
-    if(followed && !Object.values(followed).indexOf(causeId) !== -1)
-      return;
-    
-    let newFollow = settings.child('followedCauses').push();
-    newFollow.set(causeId);
-  });
+      if (followedCauses && Object.values(followedCauses).indexOf(causeId) !== -1) {
+        return;
+      }
+
+      let newFollow = settings.child('followedCauses').push();
+      newFollow.set(causeId);
+    });
 }
 
 export const userUnfollowCause = (userId, causeId) => {
   let causes = getUserSettings(userId)
-  .child('followedCauses');
+    .child('followedCauses');
 
   return causes.once('value')
-  .then((snapshot) => {
-    let val = snapshot.val();
-    if (val === null) return;
-    Object.keys(val).forEach((key) => {
-      if (val[key] == causeId) {
-        causes.child(key).remove();
-      }
-    })
-  });
+    .then((snapshot) => {
+      let val = snapshot.val();
+      if (val === null) return;
+      Object.keys(val).forEach((key) => {
+        if (val[key] == causeId) {
+          causes.child(key).remove();
+        }
+      })
+    });
 }
 
 /**
@@ -158,7 +159,7 @@ export const userUnfollowCause = (userId, causeId) => {
  */
 export const getUserFollowing = (userId, causeId) =>
   getUserSettings(userId)
-  .once('value')
-  .then(snapshot => snapshot.val())
-  .then(settings => settings.followedCauses && 
-    Object.values(settings.followedCauses).indexOf(causeId) !== -1)
+    .once('value')
+    .then(snapshot => snapshot.val())
+    .then(settings => settings.followedCauses &&
+      Object.values(settings.followedCauses).indexOf(causeId) !== -1)
