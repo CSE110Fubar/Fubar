@@ -58,6 +58,11 @@ export default class PetitionsPage extends React.Component {
     this.loadPetitions();
   };
 
+  deletePetition = (petitionId) => {
+    var petitionsRef = Api.getPetitionsRef();
+    petitionsRef.child(petitionId).remove(this.loadPetitions);
+  };
+
 	render() {
     let {petitions} = this.state;
     let {name, description, image} = this.state
@@ -79,7 +84,7 @@ export default class PetitionsPage extends React.Component {
         </div>
         <div>
           {Object.keys(petitions).map((petitionId) => 
-            <PetitionCard petition={petitions[petitionId]} petitionId={petitionId} key={petitionId} />
+            <PetitionCard petition={petitions[petitionId]} petitionId={petitionId} currentUser={this.state.user.uid} deletePetition={this.deletePetition} key={petitionId} />
           )}
         </div>
       </div>
