@@ -6,6 +6,7 @@ import PetitionCard from '~/components/PetitionCard';
 import checkAuth from '~/data/Auth';
 
 import PetitionModal from './components/PetitionModal';
+import Footer from '~/components/Footer';
 
 export default class PetitionsPage extends React.Component {
   constructor(props) {
@@ -88,6 +89,7 @@ export default class PetitionsPage extends React.Component {
           )}
         </div>
       </div>
+      <Footer/>
     </div>);
 	}
 }

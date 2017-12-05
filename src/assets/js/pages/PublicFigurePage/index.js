@@ -2,6 +2,7 @@ import React from 'react';
 
 import * as Api from '~/data/Api';
 import Hero from '~/components/Hero';
+import Footer from '~/components/Footer';
 import CauseCard from '~/components/CauseCard';
 
 export default class PublicFigurePage extends React.Component {
@@ -105,6 +106,7 @@ export default class PublicFigurePage extends React.Component {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>);
     }
 }

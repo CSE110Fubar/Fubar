@@ -2,6 +2,7 @@ import React from 'react';
 
 import * as Api from '~/data/Api';
 import Hero from '~/components/Hero';
+import Footer from '~/components/Footer';
 import CauseCard from '~/components/CauseCard';
 import PublicFigureCard from '~/components/PublicFigureCard';
 import PetitionCard from '~/components/PetitionCard';
@@ -19,27 +20,37 @@ export default class SearchResultPage extends React.Component {
   }
 
   componentWillMount() {
-
-    let causes = Api.getCausesRef();
-    causes.once('value').then((snapshot) =>
-      this.setState({causes: snapshot.val()})
-    );
+    let {params} = this.props.match;
+    let {causes, publicFigures, petitions} = this.state;
+    let causeSearchResults = Api.getCausesSearchResults(params.query).on("child_added", function(snapshot) {                  
+      let cause = Api.getCause(snapshot.key).once('value').then(function(data) {
+        causes[snapshot.key] = data.val();
+      });
+    });   
+    this.setState({causes});
 
     // Load data from API here, store in state
-    let publicFigures = Api.getPublicFigureResults();
-    publicFigures.once('value').then((snapshot) =>
-      this.setState({publicFigures: snapshot.val()})
-    );
+    let figureSearchResults = Api.getPublicFiguresSearchResults(params.query).on("child_added", function(snapshot) {                        
+      let figure = Api.getPublicFigure(snapshot.key).once('value').then(function(data) {
+        publicFigures[snapshot.key] = data.val();
+      });
+    });   
+    this.setState({publicFigures});
 
-    let petitions = Api.getPetitionsRef();
-    petitions.once('value').then((snapshot) =>
-      this.setState({petitions: snapshot.val()})
-    );
+    let petitionSearchResults = Api.getPetitionsSearchResults(params.query).on("child_added", function(snapshot) {                        
+      let petition = Api.getPetition(snapshot.key).once('value').then(function(data) {
+        petitions[snapshot.key] = data.val();
+      });
+    });   
+    this.setState({petitions});
+  }
+
+  componentWillReceiveProps(newProps) {
   }
 
 	render() {
     let {causes, publicFigures, petitions} = this.state;
-
+  
 		return (<div className="results-page">
       <Hero />
       <div className="container">
@@ -60,17 +71,14 @@ export default class SearchResultPage extends React.Component {
                 publicFigureId={publicFigureId} />
             </div>
           )}
-        </div>
+          </div>
         <h2 className="results-page__section-header">Petitions</h2>
-        <div className="row">
           {Object.keys(petitions).map((petitionId) => 
-            <div className="col" key={petitionId}>
-              <PetitionCard petition={petitions[petitionId]}
-                petitionId={petitionId} />
-            </div>
-          )}
-        </div>
+            <PetitionCard petition={petitions[petitionId]}
+            petitionId={petitionId} key={petitionId} />
+        )}
       </div>
+      <Footer/>
     </div>);
 	}
 }

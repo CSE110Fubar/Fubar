@@ -4,6 +4,15 @@
   background-position: center center;
   background-size: cover;
   
+  &--expanded {
+    padding: 2rem 0 10rem;
+  }
+
+  &__logo {
+    max-height: 2rem;
+    margin-right: 0.5rem;
+  }
+
   &__header {
     color: $link-color;
 
@@ -25,9 +34,10 @@
     &--inverse {
       color: $white;
     }
-  }
 
-  &--expanded {
-    padding: 2rem 0 10rem;
+    &--transparent {
+      background-color: transparent;
+      color: $white;
+    }
   }
 }
