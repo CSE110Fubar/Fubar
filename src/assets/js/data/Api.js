@@ -166,12 +166,6 @@ export const userUnfollowCause = (userId, causeId) => {
  */
 export const getUserFollowing = (userId, causeId) =>
   getUserSettings(userId)
-<<<<<<< HEAD
-    .once('value')
-    .then(snapshot => snapshot.val())
-    .then(settings => settings.followedCauses &&
-      Object.values(settings.followedCauses).indexOf(causeId) !== -1)
-=======
   .once('value')
   .then(snapshot => snapshot.val())
   .then(settings => settings.followedCauses && 
@@ -208,4 +202,3 @@ db.ref('/petitions')
 .endAt(query + '\uf8ff')
 
   
->>>>>>> 0651c10f7f3b54cfad728d1fb7c83d9c6c2ed0e3
