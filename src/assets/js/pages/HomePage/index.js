@@ -6,6 +6,7 @@ import CauseCard from '~/components/CauseCard';
 import checkAuth from '~/data/Auth';
 
 import Featurette from './components/Featurette';
+import Footer from '~/components/Footer';
 
 export default class HomePage extends React.Component {
   constructor(props) {
@@ -73,6 +74,7 @@ export default class HomePage extends React.Component {
       <div className="container">
         {user && <div className="column">
           <h3>Causes You Follow</h3>
+          <div className="hline"></div>
         </div>}
         {user && supportingCauses && <div className="row">
           {Object.keys(supportingCauses).map((causeId) =>
@@ -88,6 +90,7 @@ export default class HomePage extends React.Component {
         <section className="home-page__section">
           <div className="column">
             <h3>Up and Coming Causes</h3>
+            <div className="hline"></div>
           </div>
           <div className="row">
             {Object.keys(causes)
@@ -114,6 +117,7 @@ export default class HomePage extends React.Component {
           </div>
         </section>
       </div>
+      <Footer/>
     </div>);
   }
 }

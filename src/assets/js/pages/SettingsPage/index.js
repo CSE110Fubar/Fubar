@@ -6,6 +6,7 @@ import CauseCard from '~/components/CauseCard';
 import checkAuth from '~/data/Auth';
 import Firebase from '~/Firebase';
 import Hero from '~/components/Hero';
+import Footer from '~/components/Footer';
 import PublicFigureCard from '~/components/PublicFigureCard';
 
 const db = Firebase.database();
@@ -81,6 +82,7 @@ export default class SettingsPage extends React.Component {
           )}
         </section>
       </div>
+      <Footer/>
     </div>);
   }
 }
