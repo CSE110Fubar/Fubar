@@ -9,8 +9,8 @@ export default class Featurette extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col-md-6 d-flex flex-column justify-content-center">
-            <h2 className="d-block text-center">Just Cause</h2>
-            <p className="d-block text-center">Ayyyy it's LMAO fam</p>
+            <h2 className="d-block text-center">Fubar</h2>
+            <p className="d-block text-center">Stay updated on the biggest issues</p>
           </div>
           <div className="col-md-6 text-center">
             <img className="featurette__frog img-fluid" src="/img/frog_shadow.png" />
