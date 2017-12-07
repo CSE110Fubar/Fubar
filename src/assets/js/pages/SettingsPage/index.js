@@ -21,7 +21,7 @@ export default class SettingsPage extends React.Component {
       causes: {},
       figures: {},
       settings: {},
-      supportingCauses: {}
+      followedCauses: {}
     };
   }
 
@@ -34,6 +34,21 @@ export default class SettingsPage extends React.Component {
     });
   };
 
+  loadFollowedCauses = () => {
+    let { user } = this.state;
+
+    return Api.getUserSettings(user.uid)
+      .once('value')
+      .then(snapshot => snapshot.val())
+      .then(settings => {
+        if (!settings) return;
+        if (!settings.followedCauses) {
+          return this.setState({ followedCauses: [] });
+        }
+        return this.setState({ followedCauses: Object.values(settings.followedCauses) });
+      })
+  }
+
   loadData = () => {
     let userId = this.state.user.uid;
 
@@ -41,8 +56,11 @@ export default class SettingsPage extends React.Component {
       .once('value')
       .then((snapshot) => this.setState({ settings: snapshot.val() }));
 
-    Api.getUserSupportingCauses(userId)
-      .then((supportingCauses) => this.setState({ supportingCauses }));
+    this.loadFollowedCauses();
+
+    Api.getCausesRef()
+    .once('value')
+    .then((snapshot) => this.setState({causes: snapshot.val()}));
   }
 
   toggleFacebookVisibility = () => {
@@ -54,11 +72,21 @@ export default class SettingsPage extends React.Component {
     this.setState({ settings: settings });
   }
 
+  followCause = (causeId) => {
+    return Api.userFollowCause(this.state.user.uid, causeId)
+      .then(this.loadFollowedCauses);
+  }
+
+  unfollowCause = (causeId) => {
+    return Api.userUnfollowCause(this.state.user.uid, causeId)
+      .then(this.loadFollowedCauses);
+  };
 
   render() {
-    let { user, causes, figures, settings, supportingCauses } = this.state;
+    let { user, causes, figures, settings, followedCauses } = this.state;
     let facebookVisibility = settings.facebookVisibility;
-    
+
+
     return (<div className="settings-page">
       <Hero />
       <div className="container">
@@ -68,21 +96,27 @@ export default class SettingsPage extends React.Component {
             <h3 className="cause-page__section-header">Facebook Visibility</h3>
           </div>
           <div className="col-9">
-            <FontAwesome name={facebookVisibility ? 'eye' : 'circle-o'}  onClick={this.toggleFacebookVisibility} />
+            <FontAwesome name={facebookVisibility ? 'eye' : 'circle-o'} onClick={this.toggleFacebookVisibility} />
           </div>
         </section>
         <section className="row cause-page__section">
           <div className="col-12">
             <h3 className="cause-page__section-header">Causes You Follow</h3>
           </div>
-          {Object.keys(supportingCauses).map((causeId) =>
-            <div className="col-md-3" key={causeId}>
-              <CauseCard cause={supportingCauses[causeId]} causeId={causeId} />
-            </div>
-          )}
+          {user && followedCauses && causes && <div className="row">
+            {Object.values(followedCauses)
+              .map((causeId) =>
+                <div className="col-md-3" key={causeId}>
+                  <CauseCard cause={causes[causeId]} causeId={causeId}
+                    showFollow={!!user} follow={() => this.followCause(causeId)}
+                    unfollow={() => this.unfollowCause(causeId)}
+                    following={followedCauses.indexOf(causeId) !== -1} />
+                </div>
+            )}
+            </div>}
         </section>
       </div>
-      <Footer/>
+      <Footer />
     </div>);
   }
 }
