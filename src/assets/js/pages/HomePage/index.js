@@ -108,14 +108,6 @@ export default class HomePage extends React.Component {
             )}
           </div>
         </section>
-
-        <section className="home-page__section">
-          <div className="col-6 offset-3 text-center">
-            <Link to="/petitions" className="btn btn-primary btn-block">
-              View Petitions
-            </Link>
-          </div>
-        </section>
       </div>
       <Footer/>
     </div>);
