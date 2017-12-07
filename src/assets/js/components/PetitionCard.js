@@ -69,7 +69,7 @@ export default class PetitionCard extends React.Component {
       <div className="row card-body">
         <div className="col-sm-4">
           <img src={petition.image}
-            className="card-img-top"/>
+            className="card-img-top petition-card__img"/>
         </div>
         <div className="col-sm-5">
           <h3 className="card-text card__header">
@@ -83,7 +83,7 @@ export default class PetitionCard extends React.Component {
             Add Support
           </button>}
           {this.state.supporting && <button type="button" className="btn btn-primary" onClick={this.removeSupport}>
-            Remove Support
+            Revoke
           </button>}
         </div>
       </div>
