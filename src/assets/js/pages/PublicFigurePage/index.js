@@ -84,6 +84,7 @@ export default class PublicFigurePage extends React.Component {
         <div className="row figure-page__cause-row">
           <div className="col-md-6">
             <h2 className="cause-page__section-header">Supporting</h2>
+            <div className="hline"></div>
             <div className="row">
               {Object.keys(supportedCauses).map((causeId) => 
                 <div className="col-md-6">
@@ -95,6 +96,7 @@ export default class PublicFigurePage extends React.Component {
           </div>
           <div className="col-md-6">
             <h2 className="cause-page__section-header">Opposing</h2>
+            <div className="hline"></div>
 			<div className="row">
               {Object.keys(opposedCauses).map((causeId) => 
 			    <div className="col-md-6">

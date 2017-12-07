@@ -260,6 +260,7 @@ export default class CausePage extends React.Component {
         <section className="row cause-page__section">
           <div className="col-12">
             <h3 className="cause-page__section-header">Related News Articles</h3>
+            <div className="hline"></div>
           </div>
           {!news && <div className="col-12">No News Articles</div>}
           {Object.keys(news).map((newsId) => 
@@ -278,6 +279,7 @@ export default class CausePage extends React.Component {
                 </i>
               </a>}
             </h3>
+            <div className="hline"></div>
           </div>
           {!events && <div className="col-12">No Events</div>}
           {Object.keys(events).map((eventId) =>
@@ -290,9 +292,11 @@ export default class CausePage extends React.Component {
         <section className="row cause-page__section">
           <div className="col-6">
             <h3 className="cause-page__section-header">Supporters</h3>
+            <div className="hline"></div>
           </div>
           <div className="col-6">
             <h3 className="cause-page__section-header">Opposers</h3>
+            <div className="hline"></div>
           </div>
           <div className="col-6">
             <div className="row">
