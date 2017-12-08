@@ -29,15 +29,11 @@ export default class Hero extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col-md-3 text-center text-md-left d-flex justify-content-start align-items-center">
-<<<<<<< HEAD
             <div className="hero__logo-container">
               <img src="/img/face.png" className="hero__logo" />
             </div>
-=======
->>>>>>> 617602a944ba1d03f3f6744bf08ef322fc044ce1
             <h2 className="d-inline">
               <Link to="/" className={headerClass}>
-                <img src="/img/face.png" className="hero__logo" />
                 Fubar
               </Link>
             </h2>
