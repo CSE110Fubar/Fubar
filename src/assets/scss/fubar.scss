@@ -77,3 +77,9 @@ a {
     color: $white;
   }
 }
+
+.hline {
+  width: 100%;
+  border-bottom: 1px solid $brand-color;
+  margin-bottom: 1rem;
+}

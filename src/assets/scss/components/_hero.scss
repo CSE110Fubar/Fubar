@@ -9,8 +9,18 @@
   }
 
   &__logo {
-    max-height: 2rem;
-    margin-right: 0.5rem;
+    max-height: 2.5rem;
+  }
+
+  &__logo-container {
+    background: $white;
+    height: 3.5rem;
+    width: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    border-radius: 50%;
   }
 
   &__header {
