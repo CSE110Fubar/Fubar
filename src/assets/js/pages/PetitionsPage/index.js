@@ -59,8 +59,13 @@ export default class PetitionsPage extends React.Component {
     this.loadPetitions();
   };
 
+  deletePetition = (petitionId) => {
+    var petitionsRef = Api.getPetitionsRef();
+    petitionsRef.child(petitionId).remove(this.loadPetitions);
+  };
+
 	render() {
-    let {petitions} = this.state;
+    let {petitions, user} = this.state;
     let {name, description, image} = this.state
 
 		return (<div className="search-result-page">
@@ -71,16 +76,17 @@ export default class PetitionsPage extends React.Component {
         <div className="row">
           <div className="col-md-10">
             <h1 className="petition-page__header">Active Petitions</h1>
+            {!user && <p>Log in to support or add a petition for a new Cause.</p>}
           </div>
           <div className="col-md-2 text-right">
-            <button type="button" data-toggle="modal" data-target="#petition_form" className="btn btn-outline-primary">
+            <button type="button" data-toggle="modal" data-target="#petition_form" className="btn btn-outline-primary"  disabled={!user}>
               Add Petition
             </button>
           </div>
         </div>
         <div>
           {Object.keys(petitions).map((petitionId) => 
-            <PetitionCard petition={petitions[petitionId]} petitionId={petitionId} key={petitionId} />
+            <PetitionCard petition={petitions[petitionId]} petitionId={petitionId} currentUser={user && this.state.user.uid} deletePetition={this.deletePetition} key={petitionId} />
           )}
         </div>
       </div>

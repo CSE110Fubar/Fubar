@@ -56,6 +56,7 @@ export default class SearchResultPage extends React.Component {
       <div className="container">
         <h1 className="results-page__header">Results</h1>
         <h2 className="results-page__section-header">Causes</h2>
+        <div className="hline"></div>
         <div className="row">
           {Object.keys(causes).map((causeId) =>
             <div className="col-md-3" key={causeId}>
@@ -63,7 +64,9 @@ export default class SearchResultPage extends React.Component {
             </div>
           )}
         </div>
+        <br/>
         <h2 className="results-page__section-header">Public Figures</h2>
+        <div className="hline"></div>
         <div className="row">
           {Object.keys(publicFigures).map((publicFigureId) => 
             <div className="col-md-2" key={publicFigureId}>
@@ -72,7 +75,9 @@ export default class SearchResultPage extends React.Component {
             </div>
           )}
           </div>
+        <br/>
         <h2 className="results-page__section-header">Petitions</h2>
+        <div className="hline"></div>
           {Object.keys(petitions).map((petitionId) => 
             <PetitionCard petition={petitions[petitionId]}
             petitionId={petitionId} key={petitionId} />
