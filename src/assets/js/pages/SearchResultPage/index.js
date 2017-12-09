@@ -10,8 +10,7 @@ import PetitionCard from '~/components/PetitionCard';
 export default class SearchResultPage extends React.Component {
   constructor(props) {
     super(props);
-
-    // Placeholder state
+    this.getResults = this.getResults.bind(this)
     this.state = {
       causes: {},
       publicFigures: {},
@@ -19,38 +18,41 @@ export default class SearchResultPage extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     let {params} = this.props.match;
-    let {causes, publicFigures, petitions} = this.state;
-    let causeSearchResults = Api.getCausesSearchResults(params.query).on("child_added", function(snapshot) {                  
-      let cause = Api.getCause(snapshot.key).once('value').then(function(data) {
-        causes[snapshot.key] = data.val();
-      });
-    });   
-    this.setState({causes});
-
-    // Load data from API here, store in state
-    let figureSearchResults = Api.getPublicFiguresSearchResults(params.query).on("child_added", function(snapshot) {                        
-      let figure = Api.getPublicFigure(snapshot.key).once('value').then(function(data) {
-        publicFigures[snapshot.key] = data.val();
-      });
-    });   
-    this.setState({publicFigures});
-
-    let petitionSearchResults = Api.getPetitionsSearchResults(params.query).on("child_added", function(snapshot) {                        
-      let petition = Api.getPetition(snapshot.key).once('value').then(function(data) {
-        petitions[snapshot.key] = data.val();
-      });
-    });   
-    this.setState({petitions});
+    this.getResults(params.query);
   }
 
-  componentWillReceiveProps(newProps) {
+  getResults(query) {
+    let {causes, publicFigures, petitions} = this.state;
+
+    Api.getCausesSearchResults(query).on("child_added", function(snapshot) {                  
+      Api.getCause(snapshot.key).once('value').then(function(data) {
+        causes[snapshot.key] = data.val();
+        this.setState({causes});
+      }.bind(this));
+    }.bind(this));   
+
+    Api.getPublicFiguresSearchResults(query).on("child_added", function(snapshot) {                        
+      Api.getPublicFigure(snapshot.key).once('value').then(function(data) {
+        publicFigures[snapshot.key] = data.val();
+        this.setState({publicFigures});
+      }.bind(this));
+    }.bind(this));   
+
+    Api.getPetitionsSearchResults(query).on("child_added", function(snapshot) {                        
+      Api.getPetition(snapshot.key).once('value').then(function(data) {
+        petitions[snapshot.key] = data.val();
+        this.setState({petitions});
+      }.bind(this));
+    }.bind(this));   
+
   }
 
 	render() {
+    
     let {causes, publicFigures, petitions} = this.state;
-  
+    
 		return (<div className="results-page">
       <Hero />
       <div className="container">

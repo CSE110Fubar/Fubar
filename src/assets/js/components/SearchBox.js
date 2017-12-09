@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link, withRouter} from 'react-router-dom';
+import * as Api from '~/data/Api';
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -11,8 +12,9 @@ class SearchBox extends React.Component {
 
   onSearch = (event) => {
     if (event.key !== 'Enter') return;
+    let {query} = this.state; 
 
-    let {query} = this.state;    
+    //redirect to search results page
     this.props.history.push(`/search/${query}`);
   }
 
