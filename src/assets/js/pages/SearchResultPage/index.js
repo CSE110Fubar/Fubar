@@ -23,8 +23,19 @@ export default class SearchResultPage extends React.Component {
     this.getResults(params.query);
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.match.params.query != this.props.match.params.query) {
+      this.getResults(newProps.match.params.query);
+    }
+  }
+
   getResults(query) {
-    let {causes, publicFigures, petitions} = this.state;
+    var causes = {};
+    var publicFigures = {};
+    var petitions = {};
+
+    //clear previous results
+    this.setState({causes: causes, publicFigures: publicFigures, petitions: petitions});
 
     Api.getCausesSearchResults(query).on("child_added", function(snapshot) {                  
       Api.getCause(snapshot.key).once('value').then(function(data) {
