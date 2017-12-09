@@ -46,7 +46,7 @@ export default class SettingsPage extends React.Component {
           return this.setState({ followedCauses: [] });
         }
         return this.setState({ followedCauses: Object.values(settings.followedCauses) });
-      })
+      });
   }
 
   loadData = () => {
@@ -110,7 +110,7 @@ export default class SettingsPage extends React.Component {
                   <CauseCard cause={causes[causeId]} causeId={causeId}
                     showFollow={!!user} follow={() => this.followCause(causeId)}
                     unfollow={() => this.unfollowCause(causeId)}
-                    following={followedCauses.indexOf(causeId) !== -1} />
+                    following={true} />
                 </div>
             )}
             </div>}

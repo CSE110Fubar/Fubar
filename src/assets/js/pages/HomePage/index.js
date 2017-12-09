@@ -17,6 +17,7 @@ export default class HomePage extends React.Component {
       causes: {},
       user: {},
       supportingCauses: {},
+      opposingCauses: {},
       followedCauses: []
     };
   }
@@ -49,6 +50,8 @@ export default class HomePage extends React.Component {
   loadMyCauses = (userId) => {
     Api.getUserSupportingCauses(userId)
     .then((supportingCauses) => this.setState({supportingCauses}));
+    Api.getUserOpposingCauses(userId)
+    .then((opposingCauses) => this.setState({opposingCauses}));
   }
 
   loadFollowedCauses = () => {
@@ -67,7 +70,8 @@ export default class HomePage extends React.Component {
   }
 
   render() {
-    let {causes, user, supportingCauses, followedCauses} = this.state;
+    let {causes, user, supportingCauses, opposingCauses,
+      followedCauses} = this.state;
 
     return (<div className="home-page">
       <Featurette />
@@ -76,13 +80,13 @@ export default class HomePage extends React.Component {
           <h3>Causes You Follow</h3>
           <div className="hline"></div>
         </div>}
-        {user && supportingCauses && <div className="row">
-          {Object.keys(supportingCauses).map((causeId) =>
+        {user && followedCauses && <div className="row">
+          {followedCauses.map((causeId) =>
             <div className="col-md-3" key={causeId}>
-              <CauseCard cause={supportingCauses[causeId]} causeId={causeId}
-                  showFollow={!!user} follow={() => this.followCause(causeId)}
-                  unfollow = {() => this.unfollowCause(causeId)}
-                  following={followedCauses.indexOf(causeId) !== -1} />
+              <CauseCard cause={causes[causeId]} causeId={causeId}
+                showFollow={!!user} follow={() => this.followCause(causeId)}
+                unfollow={() => this.unfollowCause(causeId)}
+                following={true} />
             </div>
           )}
         </div>}
@@ -97,6 +101,10 @@ export default class HomePage extends React.Component {
             .filter((causeId) => {
               if (!Object.keys(supportingCauses)) return true;
               return Object.keys(supportingCauses).indexOf(causeId) === -1;
+            })
+            .filter((causeId) => {
+              if (!Object.keys(opposingCauses)) return true;
+              return Object.keys(opposingCauses).indexOf(causeId) === -1;
             })
             .map((causeId) =>
               <div className="col-md-3" key={causeId}>

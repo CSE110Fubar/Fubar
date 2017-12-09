@@ -120,6 +120,7 @@ export const getUserSupportingCauses = (userId) =>
       let causes = snapshot.val();
       return Object.keys(causes)
         .reduce((obj, curr) => {
+          if (!causes[curr]['supportingUsers']) return obj;
           if (Object.values(causes[curr]['supportingUsers']).indexOf(userId)
             === -1) {
             return obj;
@@ -127,6 +128,26 @@ export const getUserSupportingCauses = (userId) =>
           return { ...obj, [curr]: causes[curr] };
         }, {});
     });
+
+/**
+ * Get the causes that a given user opposes
+ * @param {String} userId The ID of the user
+ */
+export const getUserOpposingCauses = (userId) =>
+db.ref('causes')
+  .once('value')
+  .then(snapshot => {
+    let causes = snapshot.val();
+    return Object.keys(causes)
+      .reduce((obj, curr) => {
+        if (!causes[curr]['opposingUsers']) return obj;
+        if (Object.values(causes[curr]['opposingUsers']).indexOf(userId)
+          === -1) {
+          return obj;
+        }
+        return { ...obj, [curr]: causes[curr] };
+      }, {});
+  });
 
 /**
  * Adds a cause to the list of causes that the user is following.
