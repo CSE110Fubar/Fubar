@@ -199,6 +199,11 @@ export default class CausePage extends React.Component {
     let {cause, events, news,
       supportingFigures, opposingFigures, user, following} = this.state;
 
+    let isSupporting = cause.supportingUsers && 
+      Object.values(cause.supportingUsers).indexOf(user.uid) !== -1;
+    let isOpposing = cause.opposingUsers && 
+    Object.values(cause.opposingUsers).indexOf(user.uid) !== -1;;
+
     let stanceProgress = 0;
     if (cause.supportingUsers && cause.opposingUsers) {
       let supporting = Object.values(cause.supportingUsers).length,
@@ -239,18 +244,26 @@ export default class CausePage extends React.Component {
                   Object.values(cause.supportingUsers).length : '0'}
                 {' '}
                 Supporters
-                {user && <button onClick={this.supportCause}
+                {user && !isSupporting && <button onClick={this.supportCause}
                   className="btn btn-success">
                   Support
+                </button>}
+                {user && isSupporting && <button disabled={true}
+                  onClick={this.supportCause} className="btn btn-success">
+                  Supporting!
                 </button>}
               </div>
               <div className="col-6">
                 {cause.opposingUsers ?
                   Object.values(cause.opposingUsers).length : '0'}{' '}
                 Opposers
-                {user && <button onClick={this.opposeCause}
+                {user && !isOpposing && <button onClick={this.opposeCause}
                   className="btn btn-danger">
                   Oppose
+                </button>}
+                {user && isOpposing && <button onClick={this.opposeCause}
+                  disabled={true} className="btn btn-danger">
+                  Opposing!
                 </button>}
               </div>
             </div>
