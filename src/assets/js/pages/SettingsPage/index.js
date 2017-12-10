@@ -96,7 +96,11 @@ export default class SettingsPage extends React.Component {
             <h3 className="cause-page__section-header">Facebook Visibility</h3>
           </div>
           <div className="col-9">
-            <FontAwesome name={facebookVisibility ? 'eye' : 'circle-o'} onClick={this.toggleFacebookVisibility} />
+            <button className="btn btn-primary"
+              onClick={this.toggleFacebookVisibility}>
+              <FontAwesome name={facebookVisibility ? 'eye' : 'circle-o'} />{' '}
+              {facebookVisibility ? 'Visible' : 'Hidden'}
+            </button>
           </div>
         </section>
         <section className="row cause-page__section">
