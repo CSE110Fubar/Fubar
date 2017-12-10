@@ -1,13 +1,14 @@
 # Fubar
 
-## Setup Instructions
-0. Install Docker Toolbox
-1. Clone repository
-2. Open clone with Terminal
-3. Download the ```serviceAccountKey.json``` into ```src/server/config```
-4. Run ```docker-compose up``` in the root directory
+## Requirements
+0. Node.js Version >= 8.2.1
 
-If your installation is successful, you should see:
-```webpack: Compiled successfully.```
+## Installation
+0. Clone Repository
+1. Navigate to directory in bash
+2. Run ```npm install```
 
-
+## Development
+1. Run ```npm start```
+2. Navigate to ```http://localhost:8000/```
+3. Log in using a valid Facebook account
