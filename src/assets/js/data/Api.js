@@ -200,32 +200,59 @@ export const getUserFollowing = (userId, causeId) =>
 
 /**
  * Get the causes that match a search query
- * @param {String} query The ID of the user
+ * @param {String} query The search query
  */
 export const getCausesSearchResults = (query) =>
-db.ref('/causes')
-.orderByChild('name')
-.startAt(query)
-.endAt(query + '\uf8ff')
+  db.ref('/causes')
+  .once('value')
+  .then(snapshot => snapshot.val())
+  .then(causes =>
+    Object.keys(causes)
+      .reduce((obj, curr) => {
+        if (causes[curr].name.toLowerCase().indexOf(query.toLowerCase())
+          === -1) {
+          return obj;
+        }
+        return { ...obj, [curr]: causes[curr] };
+      }, {})
+  );
 
 /**
  * Get the public figures that match a search query
- * @param {String} query The ID of the user
+ * @param {String} query The search query
  */
 export const getPublicFiguresSearchResults = (query) =>
-db.ref('/publicFigures')
-.orderByChild('name')
-.startAt(query)
-.endAt(query + '\uf8ff')
+  db.ref('/publicFigures')
+  .once('value')
+  .then(snapshot => snapshot.val())
+  .then(figures =>
+    Object.keys(figures)
+      .reduce((obj, curr) => {
+        if (figures[curr].name.toLowerCase().indexOf(query.toLowerCase())
+          === -1) {
+          return obj;
+        }
+        return { ...obj, [curr]: figures[curr] };
+      }, {})
+  );
 
 /**
  * Get the petitions that match a search query
- * @param {String} query The ID of the user
+ * @param {String} query The search query
  */
 export const getPetitionsSearchResults = (query) =>
-db.ref('/petitions')
-.orderByChild('name')
-.startAt(query)
-.endAt(query + '\uf8ff')
+  db.ref('/petitions')
+  .once('value')
+  .then(snapshot => snapshot.val())
+  .then(petitions =>
+    Object.keys(petitions)
+      .reduce((obj, curr) => {
+        if (petitions[curr].name.toLowerCase().indexOf(query.toLowerCase())
+          === -1) {
+          return obj;
+        }
+        return { ...obj, [curr]: petitions[curr] };
+      }, {})
+  );
 
   

@@ -35,33 +35,19 @@ export default class SearchResultPage extends React.Component {
     var petitions = {};
 
     //clear previous results
-    this.setState({causes: causes, publicFigures: publicFigures, petitions: petitions});
+    this.setState({causes, publicFigures, petitions});
 
-    Api.getCausesSearchResults(query).on("child_added", function(snapshot) {                  
-      Api.getCause(snapshot.key).once('value').then(function(data) {
-        causes[snapshot.key] = data.val();
-        this.setState({causes});
-      }.bind(this));
-    }.bind(this));   
+    Api.getCausesSearchResults(query)
+    .then(causes => this.setState({causes}));
 
-    Api.getPublicFiguresSearchResults(query).on("child_added", function(snapshot) {                        
-      Api.getPublicFigure(snapshot.key).once('value').then(function(data) {
-        publicFigures[snapshot.key] = data.val();
-        this.setState({publicFigures});
-      }.bind(this));
-    }.bind(this));   
+    Api.getPublicFiguresSearchResults(query)
+    .then(publicFigures => this.setState({publicFigures}));
 
-    Api.getPetitionsSearchResults(query).on("child_added", function(snapshot) {                        
-      Api.getPetition(snapshot.key).once('value').then(function(data) {
-        petitions[snapshot.key] = data.val();
-        this.setState({petitions});
-      }.bind(this));
-    }.bind(this));   
-
+    Api.getPetitionsSearchResults(query)
+    .then(petitions => this.setState({petitions}));
   }
 
 	render() {
-    
     let {causes, publicFigures, petitions} = this.state;
     
 		return (<div className="results-page">
