@@ -83,7 +83,7 @@ export default class PetitionCard extends React.Component {
             Add Support
           </button>}
           {this.state.supporting && <button type="button" className="btn btn-primary" onClick={this.removeSupport}>
-            Revoke
+            Remove Support
           </button>}
         </div>
       </div>
