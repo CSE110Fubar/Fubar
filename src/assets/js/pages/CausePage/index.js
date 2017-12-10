@@ -199,9 +199,9 @@ export default class CausePage extends React.Component {
     let {cause, events, news,
       supportingFigures, opposingFigures, user, following} = this.state;
 
-    let isSupporting = cause.supportingUsers && 
+    let isSupporting = user && cause.supportingUsers && 
       Object.values(cause.supportingUsers).indexOf(user.uid) !== -1;
-    let isOpposing = cause.opposingUsers && 
+    let isOpposing = user && cause.opposingUsers && 
     Object.values(cause.opposingUsers).indexOf(user.uid) !== -1;;
 
     let stanceProgress = 0;
