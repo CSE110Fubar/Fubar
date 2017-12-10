@@ -93,7 +93,7 @@ export default class HomePage extends React.Component {
 
         <section className="home-page__section">
           <div className="column">
-            <h3>Up and Coming Causes</h3>
+            <h3>Recent Causes</h3>
             <div className="hline"></div>
           </div>
           <div className="row">
