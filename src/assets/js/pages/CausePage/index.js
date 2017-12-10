@@ -205,9 +205,11 @@ export default class CausePage extends React.Component {
     Object.values(cause.opposingUsers).indexOf(user.uid) !== -1;;
 
     let stanceProgress = 0;
-    if (cause.supportingUsers && cause.opposingUsers) {
-      let supporting = Object.values(cause.supportingUsers).length,
-        opposing = Object.values(cause.opposingUsers).length;
+    if (cause.supportingUsers || cause.opposingUsers) {
+      let supporting = cause.supportingUsers ? 
+        Object.values(cause.supportingUsers).length : 0;
+      let opposing = cause.opposingUsers ?
+        Object.values(cause.opposingUsers).length : 0;
 
       stanceProgress = supporting / (supporting + opposing);
     }
