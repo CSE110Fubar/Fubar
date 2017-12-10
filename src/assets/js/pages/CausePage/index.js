@@ -287,10 +287,6 @@ export default class CausePage extends React.Component {
           <div className="col-12">
             <h3 className="cause-page__section-header">
               Facebook Events{' '}
-              {user && <a href="#">
-                <i className="cause-page__add-event fa fa-plus fa-plus-small">
-                </i>
-              </a>}
             </h3>
             <div className="hline"></div>
           </div>
